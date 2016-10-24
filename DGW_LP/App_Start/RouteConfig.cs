@@ -13,6 +13,14 @@ namespace DGW_LP
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
+            routes.MapRoute("BinhChon", "binhchon",
+           new { controller = "Home", action = "BinhChon" });
+
+            routes.MapRoute("TheLe", "thele",
+            new { controller = "Home", action = "TheLe" });
+
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

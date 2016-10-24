@@ -13,6 +13,15 @@ namespace DGW_LP.Controllers
             return View();
         }
 
+        public ActionResult TheLe()
+        {
+            return View();
+        }
+        public ActionResult BinhChon()
+        {
+            return View();
+        }
+
         public ActionResult About()
         {
             ViewBag.Message = "Your application description page.";
