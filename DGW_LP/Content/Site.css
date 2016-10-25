@@ -734,3 +734,19 @@ textarea {
     background-color: #c23321;
     border-color: rgba(0,0,0,0.2);
 }
+.social-logined{
+    position:absolute;
+    right:0px;
+    top:0px;
+    width:150px;
+    margin-top:15px;
+}
+.social-logined a{
+    color: #fff;
+}
+.social-logined a:hover, .social-logined a:focus{
+    text-decoration:none;
+    color:#fff;
+}
+
+

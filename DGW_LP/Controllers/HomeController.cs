@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DGW_LP.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -24,6 +25,17 @@ namespace DGW_LP.Controllers
 
         public ActionResult ClipReview(int cId)
         {
+            //// Test get video thumb image
+            //string videoPath = MyHelper.getVideoPath() + "Clips/test.mp4";
+            ////string thumbName = DateTime.Now.ToString().Replace(':', '-').Replace("/", "-").Replace(" ", "-") + "-thumb.jpg";
+            //string thumbName = "test-thumb.jpg";
+            //string thumbImage = MyHelper.getVideoPath() + "ClipThumb/" + thumbName;
+
+            //var ffMpeg = new NReco.VideoConverter.FFMpegConverter();
+
+            //ffMpeg.GetVideoThumbnail(videoPath, thumbImage,5);
+
+
             return View();
         }
 
@@ -33,6 +45,12 @@ namespace DGW_LP.Controllers
 
 
 
+
+
+        public ActionResult AdminLogin()
+        {
+            return View();
+        }
 
 
 

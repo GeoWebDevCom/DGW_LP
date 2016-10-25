@@ -16,6 +16,8 @@ namespace DGW_LP.Models
             // Add custom user claims here
             return userIdentity;
         }
+
+        public string Avatar { get; set; }
     }
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>

@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿@using DGW_LP.Models
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
@@ -36,9 +38,25 @@
                     <li id="binhchon"><a href="/binhchon">Bình chọn</a></li>
                     <li id="tltag"><a href="/thele">Thể lệ chương trình</a></li>
                 </ul>
-                <div class="li-login">
-                    <a class="btnLogin" href="#" data-toggle="modal" data-target="#loginModal">Đăng nhập</a>
-                </div>
+
+
+@if (Request.IsAuthenticated)
+{
+    <div class="social-logined">
+        <img style="height:32px; width:32px; border-radius:5px" src="@MyHelper.GetSocialAvatar()" /> @HttpContext.Current.User.Identity.Name
+        | <a href="javascript:document.getElementById('logoff').submit();" title="Thoát"><i class="fa fa-lg fa-sign-out" aria-hidden="true"></i></a>
+    </div>
+}
+else
+{
+    <div class="li-login">
+        <a class="btnLogin" href="#" data-toggle="modal" data-target="#loginModal">Đăng nhập</a>
+    </div>
+}
+            
+
+             
+
                 @*@Html.Partial("_LoginPartial")*@
             </div>
         </div>
@@ -83,12 +101,12 @@
                     <h3 style="text-align:center; margin-top:0px">Tham gia với chúng tôi</h3>
                     <div class="row">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:15px">
-                            <a class="btn btn-lg btn-block btn-social btn-facebook" href="#">
+                            <a class="btn btn-lg btn-block btn-social btn-facebook" href="javascript:document.getElementById('fbsubmit').submit();">
                                 <span class="fa fa-facebook"></span> Đăng nhập Facebook
                             </a>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <a class="btn btn-lg btn-block btn-social btn-google" href="#">
+                            <a class="btn btn-lg btn-block btn-social btn-google" href="javascript:document.getElementById('gsubmit').submit();">
                                 <span class="fa fa-google"></span> Đăng nhập Google+
                             </a>
                         </div>
@@ -97,6 +115,21 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div style="display:none !important">
+        <form id="fbsubmit" method="post" action="/Account/ExternalLogin?ReturnUrl=@HttpContext.Current.Request.Url.PathAndQuery&provider=Facebook">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-default" name="provider" value="Facebook">Facebook</button>
+        </form>
+        <form id="gsubmit" method="post" action="/Account/ExternalLogin?ReturnUrl=@HttpContext.Current.Request.Url.PathAndQuery&provider=Google">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-default" name="provider" value="Google">Facebook</button>
+        </form>
+        <form id="logoff" method="post" action="/Account/LogOff">
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-default">Thoát</button>
+        </form>
+       
     </div>
 
 

@@ -9,6 +9,8 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using DGW_LP.Models;
+using Facebook;
+using Newtonsoft.Json.Linq;
 
 namespace DGW_LP.Controllers
 {
@@ -337,7 +339,7 @@ namespace DGW_LP.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Index", "Home");
             }
 
             // Sign in the user with this external login provider if the user already has a login
@@ -346,16 +348,63 @@ namespace DGW_LP.Controllers
             {
                 case SignInStatus.Success:
                     return RedirectToLocal(returnUrl);
-                case SignInStatus.LockedOut:
-                    return View("Lockout");
-                case SignInStatus.RequiresVerification:
-                    return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                //case SignInStatus.LockedOut:
+                   // return View("Lockout");
+                //case SignInStatus.RequiresVerification:
+                   // return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
                     ViewBag.ReturnUrl = returnUrl;
                     ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
+                    string profilePicturePath = "";
+
+                    if (loginInfo.Login.LoginProvider == "Facebook")
+                    {
+                        string socialUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                        //var fbUserLink = externalInfoSource.Claims.First(c => c.Type == "urn:facebook:link").Value.Replace("https://www.facebook.com/","");
+                        //var dob = externalInfoSource.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/dateofbirth").Value;
+                        //gender = externalInfoSource.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/gender").Value;
+                        profilePicturePath = string.Format("http://graph.facebook.com/{0}/picture?type=large", socialUserId);
+                        string accessToken = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "FacebookAccessToken").Value;
+
+
+                        var fb = new FacebookClient(accessToken);
+                        dynamic myInfo = fb.Get("/me?fields=email"); // specify the email field
+                        loginInfo.Email = myInfo.email;
+                }
+
+                    if (loginInfo.Login.LoginProvider == "Google")
+                    {
+                        string socialUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                        //gender = (externalInfoSource.Claims.FirstOrDefault(c => c.Type == "urn:google:gender") == null) ? "Khác" : externalInfoSource.Claims.First(c => c.Type == "urn:google:gender").Value;
+                        profilePicturePath = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:google:image").Value;
+                        // Extract image url
+                        profilePicturePath = (string)JObject.Parse(profilePicturePath).SelectToken("url");
+                        string accessToken = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "GoogleAccessToken").Value;
+                    }
+
+                    ApplicationUser newUser = new ApplicationUser()
+                    {
+                        Avatar = profilePicturePath,
+                        UserName = loginInfo.ExternalIdentity.Name,
+                        Email = loginInfo.Email
+                    };
+
+                    var rs = await UserManager.CreateAsync(newUser);
+                    if (rs.Succeeded)
+                    {
+                        var rs2 = await UserManager.AddLoginAsync(newUser.Id, loginInfo.Login);
+                        if (rs2.Succeeded)
+                        {
+                            await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                            return RedirectToLocal(returnUrl);
+                        }
+                    }
+
+                    return RedirectToAction("Index", "Home");
+
+                    //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
