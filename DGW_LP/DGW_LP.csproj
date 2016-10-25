@@ -180,6 +180,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Clips\test.mp4" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.min.css" />
@@ -192,17 +193,22 @@
     <Content Include="Imgs\banner1.png" />
     <Content Include="Imgs\bg_step_desc.png" />
     <Content Include="Imgs\bg_title.png" />
+    <Content Include="Imgs\clip_thumb.png" />
+    <Content Include="Imgs\defaultuser.png" />
     <Content Include="Imgs\digiLogo.png" />
     <Content Include="Imgs\hpLogo.png" />
     <Content Include="Imgs\laptop1.png" />
     <Content Include="Imgs\laptop2.png" />
+    <Content Include="Imgs\laptop_bg.png" />
     <Content Include="Imgs\next.png" />
     <Content Include="Imgs\prev.png" />
     <Content Include="Imgs\rightArrow.png" />
+    <Content Include="Imgs\rvdesc.png" />
     <Content Include="Imgs\step.png" />
     <Content Include="Imgs\thele_bg.png" />
     <Content Include="Imgs\thele_block.png" />
     <Content Include="Imgs\unname.png" />
+    <Content Include="Imgs\white_bg.png" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="fonts\fontawesome-webfont.eot" />
@@ -211,6 +217,7 @@
     <Content Include="fonts\fontawesome-webfont.woff2" />
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\ufonts.com_gotham-book.ttf" />
+    <Content Include="fonts\ICIELBRANDONTEXT-BOLD.TTF" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />
     <Content Include="Scripts\jquery-2.2.2.min.js" />
@@ -224,6 +231,7 @@
     <Content Include="Scripts\js\binhchon.js" />
     <Content Include="Scripts\js\index.js" />
     <Content Include="Scripts\js\main.js" />
+    <Content Include="Scripts\js\review.js" />
     <Content Include="Scripts\js\thele.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\respond.js" />
@@ -265,6 +273,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Home\TheLe.cshtml" />
     <Content Include="Views\Home\BinhChon.cshtml" />
+    <Content Include="Views\Home\ClipReview.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -5,6 +5,12 @@ body {
     position:relative;
 }
 @font-face {
+    font-family: 'Icielbrandon';
+    src: url('/fonts/ICIELBRANDONTEXT-BOLD.TTF');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
     font-family: 'Gotham';
     src: url('/fonts/ufonts.com_gotham-book.ttf');
     font-weight: normal;
@@ -124,6 +130,7 @@ textarea {
     left:50%;
     font-size:30px;
     text-align:right;
+    font-family:Icielbrandon;
 }
 
 
@@ -136,7 +143,7 @@ textarea {
     box-shadow:  0 3px 3px 0px rgb(1, 105, 146);
     -moz-box-shadow: 0 3px 3px 0px rgb(1, 105, 146);
     -webkit-box-shadow:  0 3px 3px 0px rgb(1, 105, 146);
-
+    z-index: 999999;
 }
 
 .social{
@@ -180,13 +187,23 @@ textarea {
     background-color:rgb(39,124,207);
 }
 
-.my-header .my-navbar .li-login{
-    float:right;
+.li-login{
     font-size:12px;
+    position:absolute;
+    right:5px;
+    top:12px;
+    padding:10px 15px;
 }
-.my-header .my-navbar .btnLogin{
+
+.btnLogin{
     border:2px solid #fff;
-    padding:3px 10px !important;
+    padding:7px 10px !important;
+    color:#fff;
+    text-transform:uppercase;
+}
+.btnLogin:hover{
+    text-decoration:none;
+    color:#fff;
 }
 .bg-title{
     background-image:url('/Imgs/bg_title.png');
@@ -301,20 +318,20 @@ textarea {
 
 
     
-.content-inside::-webkit-scrollbar-track, .ct-inside::-webkit-scrollbar-track
+.content-inside::-webkit-scrollbar-track, .ct-inside::-webkit-scrollbar-track, .desc-content::-webkit-scrollbar-track, .comment-area::-webkit-scrollbar-track
 {
      /*rgb(1,77,161)*/
 	-webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	background-color: #F5F5F5;
 }
 
-.content-inside::-webkit-scrollbar, .ct-inside::-webkit-scrollbar
+.content-inside::-webkit-scrollbar, .ct-inside::-webkit-scrollbar,  .desc-content::-webkit-scrollbar, .comment-area::-webkit-scrollbar
 {
 	width: 4px;
 	background-color: #F5F5F5;
 }
 
-.content-inside::-webkit-scrollbar-thumb, .ct-inside::-webkit-scrollbar-thumb
+.content-inside::-webkit-scrollbar-thumb, .ct-inside::-webkit-scrollbar-thumb, .desc-content::-webkit-scrollbar-thumb, .comment-area::-webkit-scrollbar-thumb
 {
 	background-color: rgb(41,124,204);
 }
@@ -326,7 +343,7 @@ textarea {
     text-align:center;
     margin-top:30px;
     margin-bottom:30px;
-       
+    font-family:Icielbrandon;
 }
 .uppercase{
     text-transform:uppercase;
@@ -381,7 +398,7 @@ textarea {
     border-bottom-right-radius: 10px;
 }
 .simple-pagination li{
-    width:26px;
+    min-width:26px;
     height:26px;
 }
 .simple-pagination li.disabled{
@@ -400,16 +417,279 @@ textarea {
     border:none !important;
     line-height:26px;
     padding: 2px 8px !important;
+        background:transparent;
+        font-size:12px;
 }
 .page-link{
     background:transparent;
 }
-.page-link.next{
-    background-image:url("/Imgs/rightArrow.png") !important;
-    background-repeat:no-repeat;
-    height:26px;
-    width:26px;
-    border-radius:50%;
-    background-position:center;
+.my-container{
+    padding:15px;
+    max-width: 900px !important;
+    margin:0 auto;
+    width:100%;
+    position:relative;
+    min-height:1px;
+    display:block;
+    background-image:url('/Imgs/white_bg.png');
+    background-size:cover;
+    border-radius:5px;
 }
+
+.clip-item{
+    padding:5px;
+    background-color:#fff;
+    border-radius:4px;
+    margin-bottom:15px;
+    margin-top:15px;
+}
+.clip-item .clip-thumb{
+    height:160px;
+    cursor:pointer;
+}
+.clip-item .clip-title{
+    font-weight:bold;
+    font-size:16px;
+    margin-top:5px;
+    position:relative;
+    padding-right:60px;
+}
+.clip-item .clip-title .short-name{
+      overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   line-height: 1.6em;        /* fallback */
+   max-height: 1.6em;   
+}
+.heart{
+    color: rgb(245,164,57);
+    position:absolute;
+    right:0px;
+    width:55px;
+    font-size:14px;
+    font-weight:normal;
+    top:2px;
+    cursor:pointer;
+}
+.heart-noabs{
+     color: rgb(245,164,57);
+    width:55px;
+    font-size:14px;
+    font-weight:normal;
+    cursor:pointer;
+}
+.clip-item .info{
+    position:relative;
+    height:25px;
+    margin-top:5px;
+}
+
+.clip-item .info .author{
+    font-size:13px;
+       overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   line-height: 1.3em;        /* fallback */
+   max-height: 1.3em;   
+}
+.week{
+    text-align:center;
+    list-style:none;
+    margin-bottom:0px;
+}
+.week li{
+    display:inline-block;
+    list-style:none;
+    background-color: rgb(245,164,57);
+    padding:5px 7px;
+    border-radius:4px;
+    margin:0px 10px 0px 10px;
+}
+.week li a {
+      text-transform:uppercase;
+    font-size:13px;
+       color:#fff;
+       font-weight:bold;
+}
+.week li a:hover{
+    text-decoration:none;
+    color:#fff;
+}
+
+
+.laptop-bg{
+    background-image:url('/Imgs/laptop_bg.png');
+    background-repeat:no-repeat;
+    z-index:5;
+    height:560px;
+    background-size:contain;
+        padding-top: 29px;
+    padding-left: 129px;
+}
+.clip-content{
+    background-color:gray; 
+    height:326px; 
+    width:580px;
+}
+.modal-lg
+{
+    width: 900px;
+}
+.modal-body, .modal-content{
+    background:transparent !important;
+    box-shadow: none !important;
+    border:none !important;
+}
+.clip-content video{
+    height:100%;
+    width:100%;
+}
+.clip-name{
+    color:rgb(245,164,57);
+    font-weight:bold;
+    font-size:22px;
+}
+.comment-title{
+     color:rgb(245,164,57);
+    font-weight:bold;
+    font-size:18px;
+    text-transform:uppercase;
+    margin-top:15px;
+    margin-bottom:10px;
+}
+.rv-author{
+    color:#fff;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.share{
+    color:#fff;
+    background-color:rgb(69,98,178);
+    font-weight:bold;
+    font-size:12px;
+    padding:3px 5px;
+    border-radius:4px;
+    cursor:pointer;
+    margin-left:15px;
+}
+.modal-backdrop.in{
+    opacity:0.9;
+}
+.modal-dialog{
+    padding-top:60px;
+}
+.hearts-text{
+    text-align:right;
+}
+.rv-container{
+    max-width:700px;
+    margin:0 auto;
+}
+.rv-desc{
+    background-image:url("/Imgs/rvdesc.png");
+    background-repeat:no-repeat;
+    margin:0 auto;
+    width:700px;
+    height:260px;
+    padding:35px 50px 40px 35px;
+}
+.desc-content{
+    overflow-y:auto;
+    position:relative;
+    color:#000;
+    height:185px;
+    padding-right:5px;
+}
+.comment-input-block{
+    position:relative;
+}
+.comment-input-block .avatar{
+    height:50px;
+    width:50px;
+    position:absolute;
+    left:0px;
+    top:0px;
+}
+
+.comment-input-block .comment-input{
+    padding-left:60px;
+    height: 50px;
+}
+.comment-input-block .comment-input .input-group{
+    height:50px;
+}
+.comment-input-block .comment-input .cm-inp{
+    height:50px !important;
+    background-color: rgb(190,223,255);
+    color: #000;
+    font-size:13px;
+    max-width:100%;
+    width:100%;
+}
+
+.cm-inp::-webkit-input-placeholder {
+   color: #000;
+}
+
+.cm-inp:-moz-placeholder { /* Firefox 18- */
+   color: #000;  
+}
+
+.cm-inp::-moz-placeholder {  /* Firefox 19+ */
+   color: #000;  
+}
+
+.cm-inp:-ms-input-placeholder {  
+   color: #000;  
+}
+.btn-send{
+    background-color:rgb(5,161,222);
+    color:#fff;
+    font-weight:bold;
+    padding:14px 12px !important;
+}
+.btn-send:hover{
+        background-color:rgb(2,97,134);
+    color:#fff;
+}
+.comment-container{
+    background-color:#fff;
+    padding:5px; 
+    border-radius:4px; 
+    margin-top:15px;
+}
+.comment-area{
+    background-color:#fff;
+    border-radius:4px;
+    padding:5px;
+    height:250px;
+    overflow-y:auto;
+}
+.comment-area .comment-item{
+    position:relative;
+    padding-left:60px;
+    margin-bottom:10px;
+    min-height:50px;
+}
+.comment-item:not(:last-child) {
+    border-bottom: 1px solid #eee;
+}
+
+.comment-item .avatar{
+    height:50px;
+    width:50px;
+    position:absolute;
+    left:0px;
+    top:0px;
+}
+
+.comment-item  .comment-content{
+
+}
+
 

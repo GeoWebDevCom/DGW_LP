@@ -15,7 +15,7 @@
         itemsOnPage: 6,
         ellipsePageSet: false,
         cssStyle: 'light-theme',
-        nextText: "N"
+        nextText: "Tiếp"
     });
 
 });
