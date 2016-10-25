@@ -27,7 +27,7 @@ namespace DGW_LP.Models
 
 
         public DbSet<Video> Videos { get; set; }
-
+        public DbSet<Comments> Comments { get; set; }
 
         public static ApplicationDbContext Create()
         {

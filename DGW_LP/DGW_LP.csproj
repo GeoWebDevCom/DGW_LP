@@ -179,9 +179,13 @@
     <Compile Include="Migrations\201610251033286_InitialCreate.Designer.cs">
       <DependentUpon>201610251033286_InitialCreate.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\201610251037554_test7.cs" />
-    <Compile Include="Migrations\201610251037554_test7.Designer.cs">
-      <DependentUpon>201610251037554_test7.cs</DependentUpon>
+    <Compile Include="Migrations\201610251044208_test8.cs" />
+    <Compile Include="Migrations\201610251044208_test8.Designer.cs">
+      <DependentUpon>201610251044208_test8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201610251046562_test9.cs" />
+    <Compile Include="Migrations\201610251046562_test9.Designer.cs">
+      <DependentUpon>201610251046562_test9.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -305,8 +309,11 @@
     <EmbeddedResource Include="Migrations\201610251033286_InitialCreate.resx">
       <DependentUpon>201610251033286_InitialCreate.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201610251037554_test7.resx">
-      <DependentUpon>201610251037554_test7.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201610251044208_test8.resx">
+      <DependentUpon>201610251044208_test8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201610251046562_test9.resx">
+      <DependentUpon>201610251046562_test9.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
