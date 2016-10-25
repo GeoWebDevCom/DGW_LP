@@ -37,7 +37,7 @@
                     <li id="tltag"><a href="/thele">Thể lệ chương trình</a></li>
                 </ul>
                 <div class="li-login">
-                    <a class="btnLogin" href="#">Đăng nhập</a>
+                    <a class="btnLogin" href="#" data-toggle="modal" data-target="#loginModal">Đăng nhập</a>
                 </div>
                 @*@Html.Partial("_LoginPartial")*@
             </div>
@@ -75,6 +75,30 @@
         </div>
       
     </footer>
+
+    <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document" style="padding-top:70px;">
+            <div class="modal-content">           
+                <div class="modal-body">
+                    <h3 style="text-align:center; margin-top:0px">Tham gia với chúng tôi</h3>
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-bottom:15px">
+                            <a class="btn btn-lg btn-block btn-social btn-facebook" href="#">
+                                <span class="fa fa-facebook"></span> Đăng nhập Facebook
+                            </a>
+                        </div>
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                            <a class="btn btn-lg btn-block btn-social btn-google" href="#">
+                                <span class="fa fa-google"></span> Đăng nhập Google+
+                            </a>
+                        </div>
+                    </div>
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
