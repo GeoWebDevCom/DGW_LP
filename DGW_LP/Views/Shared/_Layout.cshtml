@@ -5,10 +5,20 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title</title>
+
+
+    <meta name="description" content="@ViewBag.Description" />
+    <meta property="og:description" content="@ViewBag.Description" />
+    <meta property="og:image" content="@ViewBag.Banner" />
+    <meta property="og:title" content="@ViewBag.Title" />
+    <link rel="shortcut icon" href="~/Imgs/hpLogo.png" type="image/x-icon">
+
+
 
 
     <script type="text/javascript" src="~/Scripts/jquery-2.2.2.min.js"></script>
+  
 
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
@@ -18,7 +28,7 @@
 </head>
 <body>
     <div class="social">
-        <a href="#"><i class="fa fa-2x fa-facebook-square" aria-hidden="true"></i></a>
+        <a href="javascript:fbshareCurrentPage()"><i class="fa fa-2x fa-facebook-square" aria-hidden="true"></i></a>
         <a href="#"><i class="fa fa-2x fa-youtube-square" aria-hidden="true"></i></a>
         <a href="javascript:fbshareCurrentPage()" target="_blank" alt="Chia sẻ lên Facebook"><i class="fa fa-2x fa-share-alt-square" aria-hidden="true"></i></a>
     </div>
@@ -83,10 +93,10 @@ else
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="logo-block">
                     <div class="logo-item">
-                        <img src="~/Imgs/digiLogo.png" />
+                        <img style="height:100%" src="~/Imgs/digiLogo.png" />
                     </div>
                     <div class="logo-item">
-                        <img src="~/Imgs/hpLogo.png" />
+                        <img style="height:100%" src="~/Imgs/hpLogo.png" />
                     </div>
                 </div>
             </div>
@@ -132,8 +142,7 @@ else
        
     </div>
 
-
-    @Scripts.Render("~/bundles/jquery")
+    <script type="text/javascript" src="~/Scripts/js/main.js"></script>
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
 </body>

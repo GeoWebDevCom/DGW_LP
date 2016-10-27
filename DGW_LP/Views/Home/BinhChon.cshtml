@@ -1,7 +1,9 @@
-﻿
+﻿@model List<DGW_LP.Models.VideoVote>
+
 <link type="text/css" rel="stylesheet" href="~/Content/simplePagination.css" />
 
-
+<span style="display:none" id="total">@ViewBag.Total</span>
+<span id="hasvoted" style="display:none !important">@ViewBag.VotedVideoId</span>
 <div id="thele" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fullpage-bot">
     <div class="container">
         <h1 class="tl_h1">
@@ -11,11 +13,11 @@
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                 <div class="input-group">
                     <span class="input-group-btn">
-                        <button class="btn btn-default btn-Search" type="button">
+                        <button class="btn btn-default btn-Search" type="button" onclick="SearchVideo()">
                             <i class="fa fa-search" aria-hidden="true"></i>
                         </button>
                     </span>
-                    <input type="search" class="search-field form-control" placeholder="Tên clip, tên tác giả">
+                    <input id="searchField" type="search" class="search-field form-control" placeholder="Tên clip, tên tác giả">
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -28,105 +30,58 @@
        <div class="row">
            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                <ul class="week">
-                   <li><a href="#">Tuần 1</a></li>
-                   <li><a href="#">Tuần 2</a></li>
-                   <li><a href="#">Tuần 3</a></li>
-                   <li><a href="#">Tuần 4</a></li>
+                   <li><a href="/binhchon?t=1">Tuần 1</a></li>
+                   <li><a href="/binhchon?t=2">Tuần 2</a></li>
+                   <li><a href="/binhchon?t=3">Tuần 3</a></li>
+                   <li><a href="/binhchon?t=4">Tuần 4</a></li>
                </ul>
            </div>
        </div>
         <div class="row">
             <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12 container my-container">
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="clip-item">
-                        <div class="clip-thumb">
-                            <img style="width:100%;height:100%;" src="~/Imgs/clip_thumb.png" />
-                        </div>
-                        <div class="clip-title">
-                            <span class="short-name" title="Video of a giant title thumb description">Video of a giant title thumb description</span>
-                            <span class="heart">9999 <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="info">
-                            <span class="author">Trần Văn Hảo</span>
-                        </div>
-                    </div>
+                @{int ind = 1;}
+                @foreach (var vid in Model)
+                {
+                    <div id="ind_@ind" data-title="@vid.Title" data-author="@vid.Author" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mayBeHidden">
+                      
+                            <div class="clip-item">
+                                <div class="clip-thumb">
+                                    <a class="go-review" href="/watch/@vid.Id">
+                                        <img style="width:100%;height:100%;" src="~/ClipThumb/@vid.ThumbImg" />
+                                    </a>
+                                  
+                                </div>
+                                <div class="clip-title">
+                                    <span class="short-name" title="Video of a giant title thumb description">@vid.Title</span>
+                                    @if (Request.IsAuthenticated)
+                                    {
+                                        if (ViewBag.VotedVideoId == vid.Id)
+                                        {
+                                            <span id="@ind" title="Bạn đã bình chọn video này" class="heart voted" onclick="CancelVote(@vid.Id, this)">@vid.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                        }
+                                        else
+                                        {
+                                            <span id="@ind" title="Bình chọn video này" class="heart" onclick="VoteVideo(@vid.Id, this)">@vid.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <span id="@ind" title="Bạn cần đăng nhập để bình chọn" class="heart">@vid.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                    }
 
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="clip-item">
-                        <div class="clip-thumb">
-                            <img style="width:100%;height:100%;" src="~/Imgs/clip_thumb.png" />
-                        </div>
-                        <div class="clip-title">
-                            <span class="short-name" title="Video of a giant title thumb description">Video of a giant title thumb description</span>
-                            <span class="heart">9999 <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="info">
-                            <span class="author">Trần Văn Hảo Trần Văn Hảo Trần Văn Hảo Trần Văn Hảo</span>
-                        </div>
-                    </div>
 
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="clip-item">
-                        <div class="clip-thumb">
-                            <img style="width:100%;height:100%;" src="~/Imgs/clip_thumb.png" />
-                        </div>
-                        <div class="clip-title">
-                            <span class="short-name" title="Video of a giant title thumb description">Video of a giant title thumb description</span>
-                            <span class="heart">9999 <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="info">
-                            <span class="author">Trần Văn Hảo</span>
-                        </div>
-                    </div>
+                                </div>
+                                <div class="info">
+                                    <span class="author">@vid.Author</span>
+                                    @*<span class="author">@vid.tmpDate.ToString("dd/MM/yyyy hh:mm")</span>*@
+                                </div>
+                            </div>
+              
 
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="clip-item">
-                        <div class="clip-thumb">
-                            <img style="width:100%;height:100%;" src="~/Imgs/clip_thumb.png" />
-                        </div>
-                        <div class="clip-title">
-                            <span class="short-name" title="Video of a giant title thumb description">Video of a giant title thumb description</span>
-                            <span class="heart">9999 <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="info">
-                            <span class="author">Trần Văn Hảo</span>
-                        </div>
                     </div>
-
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="clip-item">
-                        <div class="clip-thumb">
-                            <img style="width:100%;height:100%;" src="~/Imgs/clip_thumb.png" />
-                        </div>
-                        <div class="clip-title">
-                            <span class="short-name" title="Video of a giant title thumb description">Video of a giant title thumb description</span>
-                            <span class="heart">9999 <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="info">
-                            <span class="author">Trần Văn Hảo</span>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div class="clip-item">
-                        <div class="clip-thumb">
-                            <img style="width:100%;height:100%;" src="~/Imgs/clip_thumb.png" />
-                        </div>
-                        <div class="clip-title">
-                            <span class="short-name" title="Video of a giant title thumb description">Video of a giant title thumb description</span>
-                            <span class="heart">9999 <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                        </div>
-                        <div class="info">
-                            <span class="author">Trần Văn Hảo</span>
-                        </div>
-                    </div>
-
-                </div>
+                    ind++;
+                }
+                
             </div>
         </div>
         

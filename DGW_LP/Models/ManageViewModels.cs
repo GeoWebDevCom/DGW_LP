@@ -2,9 +2,61 @@
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using System;
 
 namespace DGW_LP.Models
 {
+    public class AddComment
+    {
+        public int VideoId { get; set; }
+        public string UserId { get; set; }
+        public string Content { get; set; }
+    }
+
+    public class VideoManage
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Author { get; set; }
+        public DateTime CreatedDate { get; set; }
+
+    }
+
+    public class VideoReview {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Description { get; set; }
+        public string Author { get; set; }
+        public string Src { get; set; }
+        public string Thumb { get; set; }
+        public int Vote { get; set; }
+        public bool FinalComment { get; set; }
+        public List<Commenter> Commenters { get; set; }
+    }
+
+    public class Commenter
+    {
+        public string Name { get; set; }
+        public string Avatar { get; set; }
+        public string Content { get; set; }
+        public DateTime CreatedDate { get; set; }
+    }
+
+    public class VideoVote
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string ThumbImg { get; set; }
+
+        public DateTime tmpDate { get; set; }
+        public int Vote { get; set; }
+    }
+
+
+
+
     public class IndexViewModel
     {
         public bool HasPassword { get; set; }

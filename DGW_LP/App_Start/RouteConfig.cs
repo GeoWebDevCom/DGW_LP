@@ -23,6 +23,17 @@ namespace DGW_LP
                        new { controller = "Home", action = "ClipReview"});
 
 
+
+            routes.MapRoute("AdminManage", "admin",
+      new { controller = "Home", action = "AdminManage" });
+
+
+            routes.MapRoute("RestrictAdmin", "restrict",
+      new { controller = "Home", action = "RestrictAdmin" });
+
+
+
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

@@ -1,5 +1,9 @@
 ﻿$(document).ready(function () {
    
+    if (window.location.href.substr(-4) === "#_=_") {
+        // do what you need here
+        window.history.pushState('page2', 'Title', window.location.href.substring(0, window.location.href.length - 4));
+    }
 
 });
 

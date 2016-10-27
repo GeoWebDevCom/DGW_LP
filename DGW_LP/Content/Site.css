@@ -16,9 +16,15 @@ body {
     font-weight: normal;
     font-style: normal;
 }
+.submit{
+    display:inline-block;
+}
 footer{
     background-color:#fff;
     color: #000;
+}
+.mayBeHidden{
+    display:none;
 }
 footer .list{
     list-style: none;
@@ -250,6 +256,9 @@ textarea {
     padding:0px; 
     height:100%;
     background-image:url('/Imgs/step.png');
+    background-size:cover;
+    background-position:center;
+    background-repeat:no-repeat;
     color:#fff;
 }
 .step-block{
@@ -298,6 +307,20 @@ textarea {
 }
 .step-active .step-name span{
     border-bottom:1px solid #fff;
+}
+.camera-container{
+    position:absolute;
+    top:0px;
+    left:0px;
+    height:100%;
+    background-image:url('/Imgs/camera.png');
+    background-size:cover;
+    background-position:center;
+    width:250px;
+}
+.bg-control{
+    height:300px;
+    padding-top:60px;
 }
 .bg-step-desc{
     background-image:url('/Imgs/bg_step_desc.png');
@@ -351,6 +374,8 @@ textarea {
 #thele{
     background-image:url("/Imgs/thele_bg.png");
     background-repeat:no-repeat;
+    background-size:cover;
+    background-position:center;
 }
 .tl_content{
     background-image:url("/Imgs/thele_block.png");
@@ -374,7 +399,7 @@ textarea {
     text-align:right;
 }
 .logo-item{
-    height:75px;
+    height:100px;
     display:inline-block;
 }
 
@@ -463,6 +488,26 @@ textarea {
    line-height: 1.6em;        /* fallback */
    max-height: 1.6em;   
 }
+.restrict2{
+      overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 2; /* number of lines to show */
+   line-height: 1.4em;        /* fallback */
+   max-height: 2.8em;   
+}
+.go-review{
+    color: #000;
+}
+.go-review:hover, .go-review:focus{
+    text-decoration:none;
+    color:#000 !important;
+}
+.voted i{
+    color: #d43f3a !important;
+}
+
 .heart{
     color: rgb(245,164,57);
     position:absolute;
@@ -604,6 +649,10 @@ textarea {
     color:#000;
     height:185px;
     padding-right:5px;
+    border:none;
+    width:100%;
+    max-width:100%;
+    white-space: pre-line;
 }
 .comment-input-block{
     position:relative;

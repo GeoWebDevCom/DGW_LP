@@ -1,0 +1,20 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+
+    <script type="text/javascript" src="~/Scripts/jquery-2.2.2.min.js"></script>
+
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/bootstrap")
+
+</head>
+<body style="padding:0px; margin:0px;background-color:#eee;">
+    <div>
+        @RenderBody()
+    </div>
+</body>
+</html>

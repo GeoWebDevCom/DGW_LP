@@ -1,8 +1,12 @@
-﻿
+﻿@using DGW_LP.Models
+@using Microsoft.AspNet.Identity;
+@model DGW_LP.Models.VideoReview
 
 <div id="thele" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fullpage-bot">
 
 </div>
+<span id="hasvoted" style="display:none !important">@ViewBag.VotedVideoId</span>
+
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg padding-top" role="document">
@@ -10,8 +14,8 @@
             <div class="modal-body trans-modal">
                 <div class="laptop-bg">
                     <div class="clip-content">
-                        <video width="320" height="240" controls poster="/ClipThumb/test-thumb.jpg">
-                            <source src="~/Clips/test.mp4" type="video/mp4">
+                        <video width="320" height="240" controls poster="/ClipThumb/@Model.Thumb">
+                            <source src="~/Clips/@Model.Src" type="video/mp4">
                             Your browser does not support the video tag.
                         </video>
                     </div>
@@ -19,104 +23,104 @@
                 <div class="row">
                     <div class="rv-container">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="clip-name">Tên Video</div>
+                            <div class="clip-name">@Model.Title</div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                            <div class="rv-author">Tên tác giả</div>
+                            <div class="rv-author">@Model.Author</div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12 hearts-text">
-                            <span class="heart-noabs">9999 <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                            <span class="share"><i class="fa fa-facebook-official" aria-hidden="true"></i> Share</span>
+
+                            @if (Request.IsAuthenticated)
+                            {
+                                if (ViewBag.VotedVideoId == Model.Id)
+                                {
+                                    <span id="unique" title="Bạn đã bình chọn video này" class="heart-noabs voted" onclick="CancelVote(@Model.Id, this)">@Model.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                }
+                                else
+                                {
+                                    <span id="unique" title="Bình chọn video này" class="heart-noabs" onclick="VoteVideo(@Model.Id, this)">@Model.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                }
+                            }
+                            else
+                            {
+                                <span id="unique" title="Bạn cần đăng nhập để bình chọn" class="heart-noabs">@Model.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                            }
+
+
+                           
+
+
+
+                            <span class="share" onclick="fbshareCurrentPage()"><i class="fa fa-facebook-official" aria-hidden="true"></i> Share</span>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:40px;">
                             <div class="rv-desc">
                                 <div class="desc-content">
-                                    d gasg sddg fsdfa d d gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa d
-                                    d gasg sddg fsdfa d d gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa d
-                                    d gasg sddg fsdfa d d gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa d
-                                    d gasg sddg fsdfa d d gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa d
-                                    d gasg sddg fsdfa d d gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa d
-                                    d gasg sddg fsdfa d d gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa d
-                                    d gasg sddg fsdfa d d gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa dd gasg sddg fsdfa d
+                                    @Model.Description
                                 </div>
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="comment-title">BÌNH LUẬN</div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-                            <div class="comment-input-block">
-                                <div class="avatar">
-                                    <img style="height:100%;width:100%" src="~/Imgs/defaultuser.png" />
-                                </div>
-                                <div class="comment-input">
-                                    <div class="input-group">
-                                        <input type="text" class="form-control cm-inp" placeholder="Viết bình luận..." />
-                                        <span class="input-group-btn">
-                                            <button class="btn btn-default btn-send" type="button">Gửi</button>
-                                        </span>
+                        @if (Request.IsAuthenticated)
+                        {
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <div class="comment-input-block">
+                                    <div class="avatar">
+                                        <img style="height:100%;width:100%" src="@MyHelper.GetSocialAvatar()" />
+                                    </div>
+                                    <div class="comment-input">
+                                        <form action="/Home/SubmitComment" method="post">
+                                            <div class="input-group">
+
+                                                <input name="UserId" value="@User.Identity.GetUserId()" style="display:none !important" />
+                                                <input name="VideoId" value="@Model.Id" style="display:none !important" />
+                                                <input name="Content" type="text" class="form-control cm-inp" maxlength="500" placeholder="Viết bình luận..." />
+                                                <span class="input-group-btn">
+                                                    <button class="btn btn-default btn-send" type="submit">Gửi</button>
+                                                </span>
+
+
+                                            </div>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        }
+                      
 
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
                             <div class="comment-container">
                                 <div class="comment-area">
-                                    <div class="comment-item">
-                                        <div class="avatar">
-                                            <img style="height:100%;width:100%" src="~/Imgs/defaultuser.png" />
-                                        </div>
-                                        <div class="comment-content">
-                                            <label>Tâm tít</label>
-                                            <div>Đẹp dữ dội</div>
-                                        </div>
+                                    <div id="comment-list">
+                                        @if (!Model.Commenters.Any())
+                                        {
+                                            <p style="text-align:center">Chưa có bình luận nào</p>
+                                        }
+
+                                        @foreach (var c in Model.Commenters)
+                                        {
+                                            <div class="comment-item">
+                                                <div class="avatar">
+                                                    <img style="height:100%;width:100%" src="@c.Avatar" />
+                                                </div>
+                                                <div class="comment-content">
+                                                    <label>@c.Name</label>
+                                                    <div>@c.Content</div>
+                                                </div>
+                                            </div>
+                                        }
                                     </div>
-                                    <div class="comment-item">
-                                        <div class="avatar">
-                                            <img style="height:100%;width:100%" src="~/Imgs/defaultuser.png" />
+                                   
+                                    @if (Model.FinalComment == false)
+                                    {
+                                        <div>
+                                            <button onclick="LoadMoreComment(this, @Model.Id)" type="button" class="btn btn-block btn-primary">Xem thêm các bình luận khác</button>
                                         </div>
-                                        <div class="comment-content">
-                                            <label>Tâm tít</label>
-                                            <div>Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dộiĐẹp dữ dộiĐẹp dữ dội</div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="avatar">
-                                            <img style="height:100%;width:100%" src="~/Imgs/defaultuser.png" />
-                                        </div>
-                                        <div class="comment-content">
-                                            <label>Tâm tít</label>
-                                            <div>Đẹp dữ dội</div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="avatar">
-                                            <img style="height:100%;width:100%" src="~/Imgs/defaultuser.png" />
-                                        </div>
-                                        <div class="comment-content">
-                                            <label>Tâm tít</label>
-                                            <div>Đẹp dữ dội</div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="avatar">
-                                            <img style="height:100%;width:100%" src="~/Imgs/defaultuser.png" />
-                                        </div>
-                                        <div class="comment-content">
-                                            <label>Tâm tít</label>
-                                            <div>Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dội Đẹp dữ dộiĐẹp dữ dộiĐẹp dữ dội</div>
-                                        </div>
-                                    </div>
-                                    <div class="comment-item">
-                                        <div class="avatar">
-                                            <img style="height:100%;width:100%" src="~/Imgs/defaultuser.png" />
-                                        </div>
-                                        <div class="comment-content">
-                                            <label>Tâm tít</label>
-                                            <div>Đẹp dữ dội</div>
-                                        </div>
-                                    </div>
+                                    }
+                                   
+                       
                                 </div>
                             </div>
                             

@@ -7,13 +7,13 @@ namespace DGW_LP.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.3-40302")]
-    public sealed partial class test10 : IMigrationMetadata
+    public sealed partial class LikeTable3 : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(test10));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(LikeTable3));
         
         string IMigrationMetadata.Id
         {
-            get { return "201610251252011_test10"; }
+            get { return "201610261339398_LikeTable3"; }
         }
         
         string IMigrationMetadata.Source

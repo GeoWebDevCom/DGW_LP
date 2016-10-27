@@ -36,5 +36,17 @@ namespace DGW_LP.Models
 
     }
 
+    public class Like
+    {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int Id { get; set; }
+
+        public Video Video { get; set; }
+        public ApplicationUser ApplicationUser { get; set; }
+        public DateTime createdDate { get; set; }
+    }
+
+
 
 }

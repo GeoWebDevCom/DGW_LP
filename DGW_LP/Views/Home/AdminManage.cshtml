@@ -1,0 +1,151 @@
+﻿
+@model List<DGW_LP.Models.VideoManage>
+
+@{
+    ViewBag.Title = "Quản lí - DGW";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+<style>
+    input{
+        max-width:100%;
+        width:100%;
+    }
+</style>
+
+@if (!Request.IsAuthenticated)
+{
+    Response.Redirect("/restrict");
+}
+
+
+
+
+<div id="uploadVid" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">Đăng video mới <br />
+                    <small>Dung lượng tối đa 25 MB. Hỗ trợ định dạng mp4, flv,...</small>
+                </h4>
+            </div>
+
+                <div class="modal-body">
+                  
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <p id="error" style="display:none; color:red; font-weight:bold">*Các ô không được bỏ trống</p>
+                            </div>
+                            <p id="error" style="display:none; color:red">*Các ô không được bỏ trống</p>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label for="title">Tiêu đề</label>
+                                <input type="text" class="form-control" id="title" maxlength="100" placeholder="Tiêu đề">
+                            </div>
+                        </div>
+                        
+                      
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label for="author">Tác giả</label>
+                                <input type="text" class="form-control" id="author" max="100" placeholder="Tác giả">
+                            </div>
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                                <label for="uploadFile">Video</label>
+                                <input id="uploadFile" class="form-control" type="file" />
+                            </div>    
+                        </div>
+                                     
+                    </div>
+                    <div class="form-group">
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                                <label for="desc">Mô tả</label>
+                                <textarea id="desc" style="max-width:100%;width:100%" rows="4"></textarea>
+                            </div>
+                        </div>
+                       
+                    
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Đóng</button>
+                    <button type="button" onclick="StarUploadVideo()" class="btn btn-primary">OK</button>
+                </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+
+
+<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="padding:15px;">
+    <div style="margin-bottom:15px;">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+            <button type="button" data-backdrop="static" data-keyboard="false" data-toggle="modal" data-target="#uploadVid" class="btn btn-success"><i class="fa fa-plus" aria-hidden="true"></i> Upload Video</button>
+        </div>
+    </div>
+    <div class="">
+        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" >
+            <table class="table table-condensed table-hover table-bordered" style="background-color:#fff">
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th style="min-width:300px">Tiêu đề</th>
+                        <th style="min-width:200px;">Tác giả</th>
+                        <th>Mô tả</th>
+                        <th style="min-width:150px">Ngày đăng</th>
+                        <th style="width:120px"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                       @foreach (var vid in Model)
+                       {
+                        <tr>
+                            <td>@vid.Id</td>
+                            <td>@vid.Title</td>
+                            <td>@vid.Author</td>
+                            <td><div class="restrict2">@vid.Description</div></td>
+                            <td>@vid.CreatedDate.ToString("dd/MM/yyyy hh:mm")</td>
+                            <td>
+                                <button class="btn btn-primary">Sửa</button>
+@using (Html.BeginForm("DeleteVideo", "Home", new { vId = vid.Id }, FormMethod.Post, new { @class = "submit" }))
+{
+    <button type="submit" class="btn btn-danger">Xóa</button>
+}
+                            
+                            </td>
+                        </tr>                 
+                       }
+                  
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+
+
+<script type="text/javascript" src="~/Scripts/js/upload.js"></script>
+
+<div class="modal fade" id="upload-modal" style="background-color: rgba(81, 81, 81, 0.41);">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title detectLang" data-lang="cb-uploading">Đang tải lên</h4>
+            </div>
+            <div class="modal-body">
+                <div class="progress">
+                    <div id="photo-upload-progressbar" class="progress-bar progress-bar-eduu progress-bar-striped active" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 0%; color:white">
+                        0%
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+

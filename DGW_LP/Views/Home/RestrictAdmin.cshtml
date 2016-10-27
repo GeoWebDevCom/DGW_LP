@@ -1,0 +1,26 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Không có quyền truy cập</title>
+    <script type="text/javascript" src="~/Scripts/jquery-2.2.2.min.js"></script>
+
+</head>
+<body style="padding:0px; margin:0px">
+    <div id="restrictBlock" style="text-align:center; background-color:#d2d6de; padding-top:50px;font-size:20px;font-family:sans-serif">
+        Bạn không có quyền truy cập vào trang này.<br />Bấm vào <a href="/">đây</a> để quay lại trang chủ và đăng nhập
+    </div>
+    <script>
+        $(document).ready(function () {
+            var winHeight = $(window).height();
+            $("#restrictBlock").css("height", winHeight);
+        });
+    </script>
+</body>
+</html>

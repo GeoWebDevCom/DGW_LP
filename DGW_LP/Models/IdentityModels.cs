@@ -30,6 +30,7 @@ namespace DGW_LP.Models
 
         public DbSet<Video> Videos { get; set; }
         public DbSet<Comments> Comments { get; set; }
+        public DbSet<Like> Likes { get; set; }
 
         public static ApplicationDbContext Create()
         {

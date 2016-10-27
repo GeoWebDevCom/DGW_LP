@@ -75,12 +75,6 @@ namespace DGW_LP.Controllers
                 var data = db.Users.ToList();
 
             }
-            //using (DGW db = new DGW())
-            //{
-            //    var data = db.Videos.ToList();
-
-            //}
-
 
             if (!ModelState.IsValid)
                 {
@@ -347,11 +341,12 @@ namespace DGW_LP.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
-                    return RedirectToLocal(returnUrl);
+                    //return RedirectToLocal(returnUrl);
+                    return Redirect(returnUrl);
                 //case SignInStatus.LockedOut:
-                   // return View("Lockout");
+                // return View("Lockout");
                 //case SignInStatus.RequiresVerification:
-                   // return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                // return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
                 case SignInStatus.Failure:
                 default:
                     // If the user does not have an account, then prompt the user to create an account
@@ -398,7 +393,8 @@ namespace DGW_LP.Controllers
                         if (rs2.Succeeded)
                         {
                             await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
-                            return RedirectToLocal(returnUrl);
+                            //return RedirectToLocal(returnUrl);
+                            return Redirect(returnUrl);
                         }
                     }
 
