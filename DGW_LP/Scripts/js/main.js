@@ -5,6 +5,15 @@
         window.history.pushState('page2', 'Title', window.location.href.substring(0, window.location.href.length - 4));
     }
 
+
+    if ($("#coll").is(":visible")) {
+        $(".my-navbar li").css("width", "100%");
+        $(".my-navbar li").css("display", "block");
+        $(".my-navbar .lg-block").css("display", "block");
+        $(".lg-block-2").css("display", "none");
+    } else {
+        $(".my-navbar .lg-block").css("display", "none");
+    }
 });
 
 function fbshareCurrentPage() {

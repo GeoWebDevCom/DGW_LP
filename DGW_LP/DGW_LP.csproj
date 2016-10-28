@@ -234,6 +234,7 @@
     <Content Include="Imgs\banner1.jpg" />
     <Content Include="Imgs\banner2.jpg" />
     <Content Include="Imgs\banner3.jpg" />
+    <Content Include="Imgs\banner4.jpg" />
     <Content Include="Imgs\bg_step_desc.png" />
     <Content Include="Imgs\bg_title.png" />
     <Content Include="Imgs\camera.png" />
@@ -247,7 +248,9 @@
     <Content Include="Imgs\laptop_bg.png" />
     <Content Include="Imgs\metabanner.jpg" />
     <Content Include="Imgs\next.png" />
+    <Content Include="Imgs\nextbtn.png" />
     <Content Include="Imgs\prev.png" />
+    <Content Include="Imgs\prevbtn.png" />
     <Content Include="Imgs\rightArrow.png" />
     <Content Include="Imgs\rvdesc.png" />
     <Content Include="Imgs\step.png" />

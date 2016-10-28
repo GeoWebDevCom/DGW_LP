@@ -5,14 +5,25 @@
 <div id="thele" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fullpage-bot">
 
 </div>
-<span id="hasvoted" style="display:none !important">@ViewBag.VotedVideoId</span>
 
 
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
     <div class="modal-dialog modal-lg padding-top" role="document">
         <div class="modal-content trans-modal">
             <div class="modal-body trans-modal">
-                <div class="laptop-bg">
+
+                <div id="fake-btn" style="display:none; height:30px; margin-top:20px;" class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <a style="float:left; color:#fff; text-decoration:underline" href="/watch/@ViewBag.Prev">Video trước</a>
+                    <a style="float:right; color:#fff;text-decoration:underline" href="/watch/@ViewBag.Next">Video trước</a>
+                </div>
+                <div class="laptop-bg" style="position:relative">
+                    <div class="prevBtn">
+                        <a href="/watch/@ViewBag.Prev"><img style="height:100%; width:100%; border-radius:50%" src="~/Imgs/prevbtn.png" /></a>
+                    </div>
+                    <div class="nextBtn">
+                        <a href="/watch/@ViewBag.Next"><img style="height:100%; width:100%; border-radius:50%" src="~/Imgs/nextbtn.png" /></a>
+                    </div>
+
                     <div class="clip-content">
                         <video width="320" height="240" controls poster="/ClipThumb/@Model.Thumb">
                             <source src="~/Clips/@Model.Src" type="video/mp4">
@@ -20,6 +31,14 @@
                         </video>
                     </div>
                 </div>
+                <div id="fake-laptop-bg">
+                    <video controls poster="/ClipThumb/@Model.Thumb">
+                        <source src="~/Clips/@Model.Src" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+
                 <div class="row">
                     <div class="rv-container">
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -32,7 +51,7 @@
 
                             @if (Request.IsAuthenticated)
                             {
-                                if (ViewBag.VotedVideoId == Model.Id)
+                                if (((List<int>)ViewBag.VotedVideoId).Contains(Model.Id))
                                 {
                                     <span id="unique" title="Bạn đã bình chọn video này" class="heart-noabs voted" onclick="CancelVote(@Model.Id, this)">@Model.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
                                 }
@@ -40,6 +59,8 @@
                                 {
                                     <span id="unique" title="Bình chọn video này" class="heart-noabs" onclick="VoteVideo(@Model.Id, this)">@Model.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
                                 }
+
+                          
                             }
                             else
                             {
@@ -53,11 +74,15 @@
 
                             <span class="share" onclick="fbshareCurrentPage()"><i class="fa fa-facebook-official" aria-hidden="true"></i> Share</span>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:40px;">
+                        
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12" style="margin-top:20px;">
                             <div class="rv-desc">
                                 <div class="desc-content">
                                     @Model.Description
                                 </div>
+                            </div>
+                            <div id="fake-rv-desc">
+                                @Model.Description
                             </div>
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">

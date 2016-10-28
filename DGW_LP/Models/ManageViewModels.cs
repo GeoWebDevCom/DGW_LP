@@ -31,6 +31,7 @@ namespace DGW_LP.Models
         public string Src { get; set; }
         public string Thumb { get; set; }
         public int Vote { get; set; }
+        public DateTime createdDate { get; set; }
         public bool FinalComment { get; set; }
         public List<Commenter> Commenters { get; set; }
     }

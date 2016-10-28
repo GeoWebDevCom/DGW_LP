@@ -51,9 +51,21 @@
                     <li id="binhchon"><a href="/binhchon">Bình chọn</a></li>
                     <li id="tltag"><a href="/thele">Thể lệ chương trình</a></li>
                     <li class="lg-block">
+                    @if (Request.IsAuthenticated)
+                    {
+                        <div >
+                            <img style="height:32px; width:32px; border-radius:5px" src="@MyHelper.GetSocialAvatar()" />
+                            <div class="fixed-width"><span>@HttpContext.Current.User.Identity.Name</span></div>
+                            | <a href="javascript:document.getElementById('logoff').submit();" title="Thoát"><i style="color:#fff" class="fa fa-lg fa-sign-out" aria-hidden="true"></i></a>
+                        </div>
+                    }
+                    else
+                    {
                         <div>
                             <a class="btnLogin" href="#" onclick="ShowLogin()">Đăng nhập</a>
                         </div>
+                    }
+                      
                     </li>
                 </ul>
 
@@ -61,7 +73,8 @@
                     @if (Request.IsAuthenticated)
                     {
                         <div class="social-logined">
-                            <img style="height:32px; width:32px; border-radius:5px" src="@MyHelper.GetSocialAvatar()" /> @HttpContext.Current.User.Identity.Name
+                            <img style="height:32px; width:32px; border-radius:5px" src="@MyHelper.GetSocialAvatar()" />
+                            <div class="fixed-width"><span>@HttpContext.Current.User.Identity.Name</span></div>
                             | <a href="javascript:document.getElementById('logoff').submit();" title="Thoát"><i class="fa fa-lg fa-sign-out" aria-hidden="true"></i></a>
                         </div>
                     }

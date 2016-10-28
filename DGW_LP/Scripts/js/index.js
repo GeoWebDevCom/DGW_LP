@@ -27,6 +27,15 @@
         $(".slide-title").css("left", "10%");
 
     }
+
+    if ($(".lg-block").css("visibility") == "hidden" && $(".lg-block-2").is("visible") == true) {
+        $(".lg-block").remove();
+    }
+
+ 
+
+
+
     //$(".bg-step-desc").css("max-width", winWidth);
    // $(".bg-step-desc").css("height", $(".bg-step-desc").width()/2);
 });

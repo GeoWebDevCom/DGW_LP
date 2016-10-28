@@ -76,10 +76,9 @@ namespace DGW_LP.Controllers
 
                 if (!String.IsNullOrEmpty(userId))
                 {
-                    var votedObj = db.Likes.Where(m => m.ApplicationUser.Id == userId).Select(f => new {
-                        VideoId = f.Video.Id
-                    }).FirstOrDefault();
-                    ViewBag.VotedVideoId = votedObj == null ? 0 : votedObj.VideoId;
+                    var votedObj = db.Likes.Where(m => m.ApplicationUser.Id == userId).Select(f => f.Video.Id).ToList();
+                    ViewBag.VotedVideoId = votedObj;
+
                 }
                 return View(video);
             }
@@ -121,6 +120,7 @@ namespace DGW_LP.Controllers
                     Description = t.Description,
                     Title = t.Title,
                     Src = t.Src,
+                    createdDate = t.createdDate,
                     Thumb = t.ThumbImg,
                     Vote = db.Likes.Where(b => b.Video.Id == t.Id).Count(),
                     FinalComment = db.Comments.Where(m => m.Video.Id == t.Id).Count() > 5 ? false : true,
@@ -135,9 +135,30 @@ namespace DGW_LP.Controllers
                 string userId = User.Identity.GetUserId();
                 if (userId != null)
                 {
-                    var tmpObj = db.Likes.Where(t => t.ApplicationUser.Id == userId).Select(m => new { videoId = m.Video.Id}).FirstOrDefault();
-                    ViewBag.VotedVideoId = tmpObj != null ? tmpObj.videoId : 0;
+  
+                    var votedObj = db.Likes.Where(m => m.ApplicationUser.Id == userId).Select(f => f.Video.Id).ToList();
+                    ViewBag.VotedVideoId = votedObj;
+
                 }
+                ViewBag.Next = vid.Id;
+                ViewBag.Prev = vid.Id;
+
+                // Get next id
+                List<int> nId = db.Videos.Where(t => t.createdDate > vid.createdDate).OrderBy(v => v.createdDate).Select(m => m.Id).ToList();
+                
+                if (nId.Any())
+                {
+                    ViewBag.Next = nId[0];
+                }
+                // Get prev id
+                List<int> pId = db.Videos.Where(t => t.createdDate < vid.createdDate).OrderByDescending(v => v.createdDate).Select(m => m.Id).ToList();
+                if (pId.Any())
+                {
+                    ViewBag.Prev = pId[pId.Count()-1];
+                }
+
+
+
 
                 ViewBag.Title = vid.Title;
                 ViewBag.Description = vid.Description;
@@ -153,23 +174,25 @@ namespace DGW_LP.Controllers
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 string userId = User.Identity.GetUserId();
-                bool hasVoted = db.Likes.Where(t => t.ApplicationUser.Id == userId && t.Video.Id == videoId).Any();
-                if (!hasVoted)
+                //bool hasVoted = db.Likes.Where(t => t.ApplicationUser.Id == userId && t.Video.Id == videoId).Any();
+                //if (!hasVoted)
+                //{
+                    
+                //}
+                Like like = new Like()
                 {
-                    Like like = new Like() {
-                        ApplicationUser = db.Users.FirstOrDefault(t => t.Id == userId),
-                        Video = db.Videos.FirstOrDefault(t => t.Id == videoId),
-                        createdDate = DateTime.Now
-                    };
-                    db.Likes.Add(like);
-                    try
-                    {
-                        db.SaveChanges();
-                    }
-                    catch (Exception e)
-                    {
-                        return "Error";
-                    }
+                    ApplicationUser = db.Users.FirstOrDefault(t => t.Id == userId),
+                    Video = db.Videos.FirstOrDefault(t => t.Id == videoId),
+                    createdDate = DateTime.Now
+                };
+                db.Likes.Add(like);
+                try
+                {
+                    db.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    return "Error";
                 }
             }
             return "OK";

@@ -6,7 +6,7 @@
     $("#binhchon").addClass("active");
 
   //  var winHeight = $(window).height();
-    $("#thele").css("height", 865);
+    $("#thele").css("height", $(window).height() - 200);
 
 
     $('#myModal').modal({
@@ -16,6 +16,24 @@
 
     if ($("#hasvoted").text() != "0") {
         hasVoted = true;
+    }
+
+
+    if ($("#coll").is(":visible")) {
+        $(".laptop-bg").hide();
+        $(".rv-desc").hide();
+        $("#fake-rv-desc").show();
+        $("#fake-laptop-bg").show();
+        $(".modal-lg").css("width", "auto");
+        $(".modal-body").css("padding", "10px");
+        $(".modal-open").css("margin-right", "0px");
+        $(".modal-open .navbar-fixed-top").css("margin-right", "0px");
+        $(".hearts-text").css("text-align", "left");
+        $(".rv-author").css("margin-bottom", "10px");
+        $("#fake-btn").show();
+    } else {
+        $("#fake-rv-desc").hide();
+        $("#fake-laptop-bg").hide();
     }
 
 });

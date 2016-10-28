@@ -26,6 +26,25 @@ footer{
 .mayBeHidden{
     display:none;
 }
+.prevBtn{
+    height:40px;
+    width:40px;
+
+    position:absolute;
+    bottom:50%;
+    left:50px;
+
+}
+.nextBtn{
+    height:40px;
+    width:40px;
+
+    position:absolute;
+    bottom:50%;
+    right:50px;
+
+}
+
 footer .list{
     list-style: none;
     margin-bottom: 0;
@@ -162,6 +181,9 @@ textarea {
     right: 10px;
     top: 40%;
     z-index:1000;
+    padding:5px;
+    background-color:#fff;
+    border-radius:4px;
 }
 .social a{
        display: block;
@@ -361,10 +383,29 @@ textarea {
     color:rgb(0,77,161);
     overflow-y:auto;
     height:105px;
+    line-height:105px;
     padding-right:5px;
     font-size:15px;
 }
-
+.fixed-width{
+    width:90px;
+    display:inline-block;
+}
+.fixed-width span{
+    padding-top:5px;
+          overflow: hidden;
+   text-overflow: ellipsis;
+   display: -webkit-box;
+   -webkit-box-orient: vertical;
+   -webkit-line-clamp: 1; /* number of lines to show */
+   line-height: 1.4em;        /* fallback */
+   max-height: 1.4em;  
+}
+.content-inside span{
+    display:inline-block;
+    vertical-align:middle;
+    line-height:15px;
+}
 
     
 .content-inside::-webkit-scrollbar-track, .ct-inside::-webkit-scrollbar-track, .desc-content::-webkit-scrollbar-track, .comment-area::-webkit-scrollbar-track
@@ -584,7 +625,7 @@ textarea {
     background-color: rgb(245,164,57);
     padding:5px 7px;
     border-radius:4px;
-    margin:5px 10px 0px 10px;
+    margin:15px 10px 0px 10px;
 }
 .week li a {
       text-transform:uppercase;
@@ -597,7 +638,12 @@ textarea {
     color:#fff;
 }
 
+#fake-laptop-bg{
 
+}
+#fake-laptop-bg video{
+    width:100%;
+}
 .laptop-bg{
     background-image:url('/Imgs/laptop_bg.png');
     background-repeat:no-repeat;
@@ -675,6 +721,13 @@ textarea {
     height:260px;
     padding:35px 50px 40px 35px;
 }
+#fake-rv-desc{
+    padding:5px;
+    background-color:#fff;
+    border-radius:4px;
+}
+
+
 .desc-content{
     overflow-y:auto;
     position:relative;
@@ -773,21 +826,23 @@ textarea {
     color:#fff;
     padding:0px;
 }
+
+
 .mb-menu.in .my-navbar  li{
     width:100%;
 }
 
-.in .lg-block-2{
+/*/*in .lg-block-2{
     display:none;
 }
 .my-navbar .lg-block {
-    display:none;
+    display:none !important;
     visibility:hidden;
 }
 .in .lg-block{
-    display:block;
+    display:block !important;
     visibility:visible;
-}
+}*/
 
 .navbar-brand{
     position:absolute;

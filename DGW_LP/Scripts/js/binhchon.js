@@ -47,9 +47,6 @@
     }
 
 
-    if ($("#hasvoted").text() != "0") {
-        hasVoted = true;
-    }
 });
 
 function SearchVideo() {
@@ -110,58 +107,54 @@ function SearchVideo() {
 
 
 
-hasVoted = false;
 var htmlObj;
 
 function VoteVideo(vId, htmlItem) {
-    if (!hasVoted) {
-        hasVoted = true;
-        $.ajax({
-            method: "POST",
-            url: "/Home/VoteVideo",
-            data: { videoId: vId }
-        }).success(function (result) {
-            if (result == "OK") {
-                $(htmlItem).addClass("voted");
-                var currentCount = parseInt($.trim($(htmlItem).text()));
-                $(htmlItem).html((currentCount + 1) + " <i class='fa fa-lg fa-heart' aria-hidden='true'></i>");
-                $(htmlItem).prop('title', 'Bạn đã bình chọn video này');
 
-                if (jQuery.type(htmlItem) === "string") {
-                    $(htmlItem).attr("onclick", "CancelVote(" + vId + ",'" + htmlItem + "')");
-                } else {
-                    $(htmlItem).attr("onclick", "CancelVote(" + vId + ",'#" + htmlItem.id + "')");
-                }
-              
+    $.ajax({
+        method: "POST",
+        url: "/Home/VoteVideo",
+        data: { videoId: vId }
+    }).success(function (result) {
+        if (result == "OK") {
+            $(htmlItem).addClass("voted");
+            var currentCount = parseInt($.trim($(htmlItem).text()));
+            $(htmlItem).html((currentCount + 1) + " <i class='fa fa-lg fa-heart' aria-hidden='true'></i>");
+            $(htmlItem).prop('title', 'Bạn đã bình chọn video này');
 
+            if (jQuery.type(htmlItem) === "string") {
+                $(htmlItem).attr("onclick", "CancelVote(" + vId + ",'" + htmlItem + "')");
+            } else {
+                $(htmlItem).attr("onclick", "CancelVote(" + vId + ",'#" + htmlItem.id + "')");
             }
-        });
-    }  
+
+
+        }
+    });
 }
 
 function CancelVote(vId, htmlItem) {
-    if (hasVoted) {
-        hasVoted = false;
-        $.ajax({
-            method: "POST",
-            url: "/Home/CancelVote",
-            data: { videoId: vId }
-        }).success(function (result) {
-            if (result == "OK") {
-                $(htmlItem).removeClass("voted");
-                var currentCount = parseInt($.trim($(htmlItem).text()));
-                $(htmlItem).html((currentCount - 1) + " <i class='fa fa-lg fa-heart' aria-hidden='true'></i>");
-                $(htmlItem).prop('title', 'Bình chọn video này');
+ 
 
-                if (jQuery.type(htmlItem) === "string") {
-                    $(htmlItem).attr("onclick", "VoteVideo(" + vId + ",'" + htmlItem + "')");
-                } else {
-                    $(htmlItem).attr("onclick", "VoteVideo(" + vId + ",'#" + htmlItem.id + "')");
-                }
+    $.ajax({
+        method: "POST",
+        url: "/Home/CancelVote",
+        data: { videoId: vId }
+    }).success(function (result) {
+        if (result == "OK") {
+            $(htmlItem).removeClass("voted");
+            var currentCount = parseInt($.trim($(htmlItem).text()));
+            $(htmlItem).html((currentCount - 1) + " <i class='fa fa-lg fa-heart' aria-hidden='true'></i>");
+            $(htmlItem).prop('title', 'Bình chọn video này');
 
+            if (jQuery.type(htmlItem) === "string") {
+                $(htmlItem).attr("onclick", "VoteVideo(" + vId + ",'" + htmlItem + "')");
+            } else {
+                $(htmlItem).attr("onclick", "VoteVideo(" + vId + ",'#" + htmlItem.id + "')");
             }
-        });
-    }
+
+        }
+    });
 }
 
 
