@@ -10,7 +10,7 @@
             DANH SÁCH BÀI DỰ THI
         </h1>
         <div class="row">
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" style="margin-bottom:10px;">
                 <div class="input-group">
                     <span class="input-group-btn">
                         <button class="btn btn-default btn-Search" type="button" onclick="SearchVideo()">
@@ -42,7 +42,7 @@
                 @{int ind = 1;}
                 @foreach (var vid in Model)
                 {
-                    <div id="ind_@ind" data-title="@vid.Title" data-author="@vid.Author" class="col-lg-4 col-md-4 col-sm-4 col-xs-4 mayBeHidden">
+                    <div id="ind_@ind" data-title="@vid.Title" data-author="@vid.Author" class="col-lg-4 col-md-4 col-sm-6 col-xs-12 mayBeHidden">
                       
                             <div class="clip-item">
                                 <div class="clip-thumb">

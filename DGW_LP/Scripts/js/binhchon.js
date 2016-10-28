@@ -6,7 +6,12 @@
     $("#binhchon").addClass("active");
 
     var winHeight = $(window).height();
-    $(".fullpage-bot").css("height", 865);
+    if (winHeight < 750) {
+        //$(".fullpage-bot").css("min-height", winHeight);
+    } else {
+        $(".fullpage-bot").css("height", 865);
+
+    }
 
     $('#searchField').keypress(function (e) {
         var key = e.which;

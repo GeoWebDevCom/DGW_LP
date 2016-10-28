@@ -241,6 +241,7 @@
     <Content Include="Imgs\defaultuser.png" />
     <Content Include="Imgs\digiLogo.png" />
     <Content Include="Imgs\hpLogo.png" />
+    <Content Include="Imgs\hpLogo_w.png" />
     <Content Include="Imgs\laptop1.png" />
     <Content Include="Imgs\laptop2.png" />
     <Content Include="Imgs\laptop_bg.png" />

@@ -1,7 +1,7 @@
 ﻿
 
 
-<div class="fullpage">
+<div id="mb-fixed-height" class="fullpage">
     <div class="col-sm-12" style="padding:0px; height:100%">
         <div class="bs-example">
             <div id="myCarousel" class="carousel slide">
@@ -60,10 +60,10 @@
         <div class="container">
             <div class="row">
                 <div class="col-lg-5 col-md-5 col-sm-5 col-xs-12 laptop">
-                    <img style="height:250px" src="~/Imgs/laptop1.png" />
+                    <img style="height:250px;max-width:100%" src="~/Imgs/laptop1.png" />
                 </div>
                 <div class="col-lg-7 col-md-7 col-sm-7 col-xs-12">
-                    <img style="height:362px" src="~/Imgs/laptop2.png" />
+                    <img style="height:362px; max-width:100%" src="~/Imgs/laptop2.png" />
                 </div>
             </div>
            <div class="row">
@@ -91,26 +91,41 @@
                 <div class="step-title">Tham gia ngay chỉ với 4 bước đơn giản</div>
                 <div class="row step-space">
                     <div class="col-lg-3 col-md-4 col-sm-4 col-xs-12">
-                        <div  onclick="ShowDesc(1, this)" class="step-block step-space step-active">
-                            <div class="step-num">1</div>
-                            <div class="step-name">
-                                <span>Lên ý tưởng</span>
+                        <div class="row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mini-padding">
+                                <div onclick="ShowDesc(1, this)" class="step-block step-space step-active">
+                                    <div class="step-num">1</div>
+                                    <div class="step-name">
+                                        <span>Lên ý tưởng</span>
+                                    </div>
+                                </div>
                             </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mini-padding">
+                                <div onclick="ShowDesc(2, this)" class="step-block step-space">
+                                    <div class="step-num">2</div>
+                                    <div class="step-name"><span>Quay clip</span></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mini-padding">
+                                <div onclick="ShowDesc(3, this)" class="step-block step-space">
+                                    <div class="step-num">3</div>
+                                    <div class="step-name"><span>Gửi clip</span></div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-xs-6 mini-padding">
+                                <div onclick="ShowDesc(4, this)" class="step-block step-space">
+                                    <div class="step-num">4</div>
+                                    <div class="step-name"><span>Bình chọn</span></div>
+                                </div>
+                            </div>
+
+
                         </div>
-                        <div onclick="ShowDesc(2, this)" class="step-block step-space">
-                            <div  class="step-num">2</div>
-                            <div class="step-name"><span>Quay clip</span></div>
-                        </div>
-                        <div  onclick="ShowDesc(3, this)" class="step-block step-space">
-                            <div class="step-num">3</div>
-                            <div class="step-name"><span>Gửi clip</span></div>
-                        </div>
-                        <div onclick="ShowDesc(4, this)" class="step-block step-space">
-                            <div class="step-num">4</div>
-                            <div class="step-name"><span>Bình chọn</span></div>
-                        </div>
+                     
+
+                      
                     </div>
-                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12" style="position:relative;">
+                    <div class="col-lg-9 col-md-8 col-sm-8 col-xs-12 no-padding" style="position:relative;">
                         <div class="camera-container">
                             @*<img class="camera" src="~/Imgs/camera.png" />*@
                         </div>
