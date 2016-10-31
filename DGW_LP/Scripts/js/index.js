@@ -15,6 +15,15 @@
         $(".fullpage-bot").css("height", winHeight);
         $("#mb-fixed-height").css("height", winHeight - 60);
      
+        // Modify slider height
+        $(".fill").css("height", "75%");
+        $(".carousel-control").css("top", "35%");
+
+        $(".slide-title").css("color","#000");
+        $(".slide-title").css("position", "initial");
+        $(".slide-title").css("text-align", "center");
+        $(".slide-title").css("margin-top", "20px");
+
     } else {
         $(".fullpage").css("height", winHeight - 60);
         $(".fullpage-bot").css("height", winHeight - 100);
@@ -33,8 +42,6 @@
     }
 
  
-
-
 
     //$(".bg-step-desc").css("max-width", winWidth);
    // $(".bg-step-desc").css("height", $(".bg-step-desc").width()/2);

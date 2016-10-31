@@ -26,6 +26,10 @@ footer{
 .mayBeHidden{
     display:none;
 }
+
+
+
+
 .prevBtn{
     height:40px;
     width:40px;
@@ -105,7 +109,7 @@ textarea {
 }
 .item {
     color: #666;
-    background: #333;
+    background: #fff;
     height: 100%;
     /*line-height: 300px;*/
     /* Align the text vertically center. */
