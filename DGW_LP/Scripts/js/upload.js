@@ -22,10 +22,10 @@ function StarUploadVideo() {
     if (document.getElementById("uploadFile").files.length > 0) {
         isSelectingImg = true;
         var file = document.getElementById("uploadFile").files[0];
-        if (file.size < 25000000) {
+        if (file.size < 50000000) {
             UploadVideo();
         } else {
-            alert("Video quá lớn. Cho phép dung lượng tối đa là 25 MB");
+            alert("Video quá lớn. Cho phép dung lượng tối đa là 50 MB");
         }
     } else {
         alert("Chưa chọn video");

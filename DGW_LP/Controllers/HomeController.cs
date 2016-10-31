@@ -226,7 +226,7 @@ namespace DGW_LP.Controllers
 
 
         [HttpPost]
-        public string UploadVideo(string para1)
+        public string UploadVideo()
         {
             // 2 ads video
             //string path1 = MyHelper.getVideoPath() + "Clips/test.mp4";
@@ -282,7 +282,8 @@ namespace DGW_LP.Controllers
             }
             catch (Exception e)
             {
-                return "Error";
+                return e.Message;
+                //return "Error";
             }
             return "OK";
         }
@@ -373,7 +374,7 @@ namespace DGW_LP.Controllers
                         Title = t.Title,
                         CreatedDate = t.createdDate,
                         Id = t.Id
-                    }).Skip(0).Take(10).ToList();
+                    }).ToList();
                     return View(video);
                 }else
                 {
