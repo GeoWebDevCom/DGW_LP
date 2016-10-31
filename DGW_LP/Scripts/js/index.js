@@ -24,6 +24,7 @@
         $(".slide-title").css("text-align", "center");
         $(".slide-title").css("margin-top", "20px");
 
+
     } else {
         $(".fullpage").css("height", winHeight - 60);
         $(".fullpage-bot").css("height", winHeight - 100);
