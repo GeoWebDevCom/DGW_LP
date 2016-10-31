@@ -154,12 +154,24 @@ textarea {
 
 /*My Css from here*/
 
+.slide-title2{
+    display:none;
+    text-align:center;
+        color: #181717;
+        font-size:32px;
+        margin-top:10px;
+}
+
 .slide-title{
-    color: #fff;
-    background:transparent;
-    position:absolute;
+    width: 550px;
+    height: 200px;
+    color: #181717;
+    background:url("/Imgs/blurbg.png");
+    background-repeat:no-repeat;
+    background-size:cover;
+      position:absolute;
     top: 20px;
-    left:50%;
+    left:40%;
     font-size:30px;
     text-align:right;
     font-family:Icielbrandon;

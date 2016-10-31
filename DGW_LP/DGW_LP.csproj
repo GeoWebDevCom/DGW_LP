@@ -237,6 +237,9 @@
     <Content Include="Imgs\banner4.jpg" />
     <Content Include="Imgs\bg_step_desc.png" />
     <Content Include="Imgs\bg_title.png" />
+    <Content Include="Imgs\blur.png" />
+    <Content Include="Imgs\blurbg.png" />
+    <Content Include="Imgs\blurbg2.png" />
     <Content Include="Imgs\camera.png" />
     <Content Include="Imgs\clip_thumb.png" />
     <Content Include="Imgs\defaultuser.png" />

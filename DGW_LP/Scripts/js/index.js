@@ -10,20 +10,11 @@
     var winWidth = $(window).width();
 
     if (winHeight < 750) {
-        $(".fullpage").css("min-height", winHeight-60);
+        $(".fullpage").css("min-height", winHeight-80);
         $(".fullpage-bot").css("min-height", winHeight);
         $(".fullpage-bot").css("height", winHeight);
-        $("#mb-fixed-height").css("height", winHeight - 60);
+        $("#mb-fixed-height").css("height", winHeight - 80);
      
-        // Modify slider height
-        $(".fill").css("height", "75%");
-        $(".carousel-control").css("top", "35%");
-
-        $(".slide-title").css("color","#000");
-        $(".slide-title").css("position", "initial");
-        $(".slide-title").css("text-align", "center");
-        $(".slide-title").css("margin-top", "20px");
-
 
     } else {
         $(".fullpage").css("height", winHeight - 60);
@@ -34,7 +25,17 @@
         $(".bg-step-desc").css("background-size", "cover");
     }
     if (winWidth < 415) {
-        $(".slide-title").css("left", "10%");
+
+        // Modify slider height
+        $(".fill").css("height", "75%");
+        $(".carousel-control").css("top", "35%");
+
+        $(".slide-title").css("display", "none");
+        $(".slide-title2").show();
+
+
+
+        //$(".slide-title").css("left", "10%");
 
     }
 
