@@ -365,7 +365,7 @@ namespace DGW_LP.Controllers
             {
                 var userId = User.Identity.GetUserId();
                 var adminEmail = db.Users.FirstOrDefault(t => t.Id == userId);
-                if (adminEmail != null && adminEmail.Email == AdminEmail)
+                if (adminEmail != null && ((adminEmail.Email == AdminEmail) || (adminEmail.Email=="tt_anhwan@live.com") || (adminEmail.Email=="nauy245135@gmail.com")|| (adminEmail.Email=="phuongthinh.do@firstcom.vn")))
                 {
                     List<VideoManage> video = db.Videos.OrderByDescending(t => t.createdDate).Select(t => new VideoManage
                     {
