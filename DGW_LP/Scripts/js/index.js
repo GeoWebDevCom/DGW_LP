@@ -9,15 +9,15 @@
     var winHeight = $(window).height();
     var winWidth = $(window).width();
 
+    $(".fullpage").css("min-height", 500);
+
     if (winHeight < 750) {
-        $(".fullpage").css("min-height", winHeight-80);
+        //$(".fullpage").css("min-height", winHeight-80);
         $(".fullpage-bot").css("min-height", winHeight);
         $(".fullpage-bot").css("height", winHeight);
-        $("#mb-fixed-height").css("height", winHeight - 80);
-     
-
+        //$("#mb-fixed-height").css("height",437);
     } else {
-        $(".fullpage").css("height", winHeight - 60);
+        //$(".fullpage").css("height", winHeight - 60);
         $(".fullpage-bot").css("height", winHeight - 100);
     }
 

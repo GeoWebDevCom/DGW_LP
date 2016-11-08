@@ -7,7 +7,7 @@
 
     var winHeight = $(window).height();
     if (winHeight < 750) {
-        //$(".fullpage-bot").css("min-height", winHeight);
+        $(".fullpage-bot").css("min-height", winHeight);
     } else {
         $(".fullpage-bot").css("height", 865);
 

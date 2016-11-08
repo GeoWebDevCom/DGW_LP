@@ -165,14 +165,15 @@ textarea {
 .slide-title{
     width: 550px;
     height: 200px;
-    color: #181717;
-    background:url("/Imgs/blurbg.png");
+    color:#fff;
+    /*color: #181717;*/
+    /*background:url("/Imgs/blurbg.png");
     background-repeat:no-repeat;
-    background-size:cover;
+    background-size:cover;*/
       position:absolute;
     /*top: 20px;
     left:40%;*/
-    font-size:30px;
+    font-size:50px;
     text-align:right;
     font-family:Icielbrandon;
 }
@@ -305,7 +306,7 @@ textarea {
 }
 .BO-desc{
     padding-left:80px;
-    font-size:13px;
+    font-size:15px;
     font-family:Gotham;
 }
 .step{
