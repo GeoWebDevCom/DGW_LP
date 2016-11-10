@@ -200,6 +200,8 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Clips\10-11-2016-1-00-21-SA.avi" />
+    <Content Include="Clips\10-11-2016-1-00-21-SA.mp4" />
     <Content Include="Clips\26-10-2016-8-45-10-CH.mp4" />
     <Content Include="Clips\26-10-2016-8-46-07-CH.mp4" />
     <Content Include="Clips\27-10-2016-2-21-22-CH.mp4" />
@@ -211,6 +213,7 @@
     <Content Include="Clips\27-10-2016-3-57-43-CH.mp4" />
     <Content Include="Clips\27-10-2016-3-58-04-CH.mp4" />
     <Content Include="Clips\test.mp4" />
+    <Content Include="ClipThumb\10-11-2016-1-00-21-SA-thumb.jpg" />
     <Content Include="ClipThumb\26-10-2016-8-45-10-CH-thumb.jpg" />
     <Content Include="ClipThumb\26-10-2016-8-46-07-CH-thumb.jpg" />
     <Content Include="ClipThumb\27-10-2016-2-21-22-CH-thumb.jpg" />
@@ -270,6 +273,7 @@
     <Content Include="fonts\FontAwesome.otf" />
     <Content Include="fonts\ufonts.com_gotham-book.ttf" />
     <Content Include="fonts\ICIELBRANDONTEXT-BOLD.TTF" />
+    <Content Include="Clips\10-11-2016-1-00-21-SA.webm" />
     <None Include="Properties\PublishProfiles\DGW.pubxml" />
     <None Include="Scripts\jquery-2.2.2.intellisense.js" />
     <Content Include="Scripts\jquery-2.2.2.js" />

@@ -680,7 +680,7 @@ textarea {
     width: 900px;
 }
 .trans-modal{
-    background:transparent !important;
+    background:transparent !important;.clip-content
     box-shadow: none !important;
     border:none !important;
 }
@@ -688,6 +688,9 @@ textarea {
     height:100%;
     width:100%;
 }
+
+
+
 .clip-name{
     color:rgb(245,164,57);
     font-weight:bold;

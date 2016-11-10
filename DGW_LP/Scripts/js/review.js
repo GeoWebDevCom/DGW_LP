@@ -14,9 +14,9 @@
         keyboard: false
     });
 
-    if ($("#hasvoted").text() != "0") {
-        hasVoted = true;
-    }
+    //if ($("#hasvoted").text() != "0") {
+    //    hasVoted = true;
+    //}
 
 
     if ($("#coll").is(":visible")) {
@@ -71,7 +71,7 @@ function LoadMoreComment(htmlItem, vId) {
   
 }
 
-hasVoted = false;
+
 
 function VoteVideo(vId, htmlItem) {
     if (!hasVoted) {

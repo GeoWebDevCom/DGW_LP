@@ -2,6 +2,11 @@
 @using Microsoft.AspNet.Identity;
 @model DGW_LP.Models.VideoReview
 
+<link href="http://vjs.zencdn.net/5.8.8/video-js.css" rel="stylesheet">
+<script src="http://vjs.zencdn.net/ie8/1.1.2/videojs-ie8.min.js"></script>
+
+<script src="http://vjs.zencdn.net/5.8.8/video.js"></script>
+
 <div id="thele" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fullpage-bot">
 
 </div>
@@ -24,18 +29,38 @@
                         <a href="/watch/@ViewBag.Next"><img style="height:100%; width:100%; border-radius:50%" src="~/Imgs/nextbtn.png" /></a>
                     </div>
 
+
                     <div class="clip-content">
-                        <video width="320" height="240" controls poster="/ClipThumb/@Model.Thumb">
-                            <source src="~/Clips/@Model.Src" type="video/mp4">
-                            Your browser does not support the video tag.
+
+                        <video id="my-video" class="video-js" controls preload="auto" width="580" height="326"
+                               poster="/ClipThumb/10-11-2016-1-00-21-SA-thumb.jpg" data-setup="{}">
+                            <source src="~/Clips/10-11-2016-1-00-21-SA.webm" type='video/webm'>
+                            <p class="vjs-no-js">
+                                To view this video please enable JavaScript, and consider upgrading to a web browser that
+                                <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                            </p>
                         </video>
+
+                        @*<video width="320" height="240" controls poster="/ClipThumb/@Model.Thumb">
+                            <source src="~/Clips/10-11-2016-1-00-21-SA.avi" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>*@
                     </div>
                 </div>
                 <div id="fake-laptop-bg">
-                    <video controls poster="/ClipThumb/@Model.Thumb">
+                    <video id="my-video" class="video-js" controls preload="auto" 
+                           poster="/ClipThumb/10-11-2016-1-00-21-SA-thumb.jpg" data-setup="{}">
+                        <source src="~/Clips/10-11-2016-1-00-21-SA.webm" type='video/webm'>
+                        <p class="vjs-no-js">
+                            To view this video please enable JavaScript, and consider upgrading to a web browser that
+                            <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
+                        </p>
+                    </video>
+
+                    @*<video controls poster="/ClipThumb/@Model.Thumb">
                         <source src="~/Clips/@Model.Src" type="video/mp4">
                         Your browser does not support the video tag.
-                    </video>
+                    </video>*@
                 </div>
 
 
@@ -54,13 +79,19 @@
                                 if (((List<int>)ViewBag.VotedVideoId).Contains(Model.Id))
                                 {
                                     <span id="unique" title="Bạn đã bình chọn video này" class="heart-noabs voted" onclick="CancelVote(@Model.Id, this)">@Model.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                    <script>
+                                        hasVoted = true;
+                                    </script>
                                 }
                                 else
                                 {
                                     <span id="unique" title="Bình chọn video này" class="heart-noabs" onclick="VoteVideo(@Model.Id, this)">@Model.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                    <script>
+                                        hasVoted = false;
+                                    </script>
                                 }
 
-                          
+
                             }
                             else
                             {
@@ -163,5 +194,9 @@
     </div>
 </div>
 
-
 <script type="text/javascript" defer src="~/Scripts/js/review.js"></script>
+<style>
+    .my-video-dimensions{
+    width:100% !important;
+}
+</style>
