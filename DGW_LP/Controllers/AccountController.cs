@@ -337,70 +337,93 @@ namespace DGW_LP.Controllers
             }
 
             // Sign in the user with this external login provider if the user already has a login
-            var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
-            switch (result)
+
+            var user = await UserManager.FindAsync(loginInfo.Login);
+            var existedUser = loginInfo.Email == null ? null : await UserManager.FindByEmailAsync(loginInfo.Email);
+
+            if (user != null)
             {
-                case SignInStatus.Success:
+                await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);           
+                return Redirect(returnUrl);
+            }
+            else if (existedUser != null)
+            {
+                var rs = await UserManager.AddLoginAsync(existedUser.Id, loginInfo.Login);
+                if (rs.Succeeded)
+                {
+                    await SignInManager.SignInAsync(existedUser, isPersistent: false, rememberBrowser: false);
                     //return RedirectToLocal(returnUrl);
                     return Redirect(returnUrl);
-                //case SignInStatus.LockedOut:
-                // return View("Lockout");
-                //case SignInStatus.RequiresVerification:
-                // return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
-                case SignInStatus.Failure:
-                default:
-                    // If the user does not have an account, then prompt the user to create an account
-                    ViewBag.ReturnUrl = returnUrl;
-                    ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
-                    string profilePicturePath = "";
+                }
+                return RedirectToAction("Index", "Home");
 
-                    if (loginInfo.Login.LoginProvider == "Facebook")
-                    {
-                        string socialUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-                        //var fbUserLink = externalInfoSource.Claims.First(c => c.Type == "urn:facebook:link").Value.Replace("https://www.facebook.com/","");
-                        //var dob = externalInfoSource.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/dateofbirth").Value;
-                        //gender = externalInfoSource.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/gender").Value;
-                        profilePicturePath = string.Format("http://graph.facebook.com/{0}/picture?type=large", socialUserId);
-                        string accessToken = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "FacebookAccessToken").Value;
+            }
+            else
+            {
+                var result = await SignInManager.ExternalSignInAsync(loginInfo, isPersistent: false);
+                switch (result)
+                {
+                    case SignInStatus.Success:
+                        //return RedirectToLocal(returnUrl);
+                        return Redirect(returnUrl);
+                    //case SignInStatus.LockedOut:
+                    // return View("Lockout");
+                    //case SignInStatus.RequiresVerification:
+                    // return RedirectToAction("SendCode", new { ReturnUrl = returnUrl, RememberMe = false });
+                    case SignInStatus.Failure:
+                    default:
+                        // If the user does not have an account, then prompt the user to create an account
+                        ViewBag.ReturnUrl = returnUrl;
+                        ViewBag.LoginProvider = loginInfo.Login.LoginProvider;
+                        string profilePicturePath = "";
+
+                        if (loginInfo.Login.LoginProvider == "Facebook")
+                        {
+                            string socialUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                            //var fbUserLink = externalInfoSource.Claims.First(c => c.Type == "urn:facebook:link").Value.Replace("https://www.facebook.com/","");
+                            //var dob = externalInfoSource.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/dateofbirth").Value;
+                            //gender = externalInfoSource.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/gender").Value;
+                            profilePicturePath = string.Format("http://graph.facebook.com/{0}/picture?type=large", socialUserId);
+                            string accessToken = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "FacebookAccessToken").Value;
 
 
-                        var fb = new FacebookClient(accessToken);
-                        dynamic myInfo = fb.Get("/me?fields=email"); // specify the email field
-                        loginInfo.Email = myInfo.email;
+                            var fb = new FacebookClient(accessToken);
+                            dynamic myInfo = fb.Get("/me?fields=email"); // specify the email field
+                            loginInfo.Email = myInfo.email;
+                        }
+
+                        if (loginInfo.Login.LoginProvider == "Google")
+                        {
+                            string socialUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
+                            //gender = (externalInfoSource.Claims.FirstOrDefault(c => c.Type == "urn:google:gender") == null) ? "Khác" : externalInfoSource.Claims.First(c => c.Type == "urn:google:gender").Value;
+                            profilePicturePath = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:google:image").Value;
+                            // Extract image url
+                            profilePicturePath = (string)JObject.Parse(profilePicturePath).SelectToken("url");
+                            string accessToken = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "GoogleAccessToken").Value;
+                        }
+
+                        ApplicationUser newUser = new ApplicationUser()
+                        {
+                            Avatar = profilePicturePath,
+                            UserName = loginInfo.ExternalIdentity.Name,
+                            Email = loginInfo.Email
+                        };
+
+                        var rs = await UserManager.CreateAsync(newUser);
+                        if (rs.Succeeded)
+                        {
+                            var rs2 = await UserManager.AddLoginAsync(newUser.Id, loginInfo.Login);
+                            if (rs2.Succeeded)
+                            {
+                                await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
+                                //return RedirectToLocal(returnUrl);
+                                return Redirect(returnUrl);
+                            }
+                        }
+
+                        return RedirectToAction("Index", "Home");
                 }
 
-                    if (loginInfo.Login.LoginProvider == "Google")
-                    {
-                        string socialUserId = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "http://schemas.xmlsoap.org/ws/2005/05/identity/claims/nameidentifier").Value;
-                        //gender = (externalInfoSource.Claims.FirstOrDefault(c => c.Type == "urn:google:gender") == null) ? "Khác" : externalInfoSource.Claims.First(c => c.Type == "urn:google:gender").Value;
-                        profilePicturePath = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "urn:google:image").Value;
-                        // Extract image url
-                        profilePicturePath = (string)JObject.Parse(profilePicturePath).SelectToken("url");
-                        string accessToken = loginInfo.ExternalIdentity.Claims.First(c => c.Type == "GoogleAccessToken").Value;
-                    }
-
-                    ApplicationUser newUser = new ApplicationUser()
-                    {
-                        Avatar = profilePicturePath,
-                        UserName = loginInfo.ExternalIdentity.Name,
-                        Email = loginInfo.Email
-                    };
-
-                    var rs = await UserManager.CreateAsync(newUser);
-                    if (rs.Succeeded)
-                    {
-                        var rs2 = await UserManager.AddLoginAsync(newUser.Id, loginInfo.Login);
-                        if (rs2.Succeeded)
-                        {
-                            await SignInManager.SignInAsync(newUser, isPersistent: false, rememberBrowser: false);
-                            //return RedirectToLocal(returnUrl);
-                            return Redirect(returnUrl);
-                        }
-                    }
-
-                    return RedirectToAction("Index", "Home");
-
-                    //return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = loginInfo.Email });
             }
         }
 
