@@ -28,7 +28,7 @@ namespace DGW_LP.Controllers
             ViewBag.Banner = "http://hpkhoinguonsangtao.com.vn/Imgs/metabanner.jpg";
             return View();
         }
-        public ActionResult BinhChon(int t = 1)
+        public ActionResult BinhChon(int t = 2)
         {
             ViewBag.Title = "Khơi nguồn sáng tạo - Thổi bùng đam mê";
             ViewBag.Description = "Nhằm tạo sân chơi cho các bạn trẻ sinh viên yêu âm nhạc, khơi nguồn cảm hứng để các bạn có thể được sống với niềm đam mê và có cơ hội tỏa sáng trên sân chơi chung, thêm yêu đời, yêu cuộc sống thông qua những giai điệu âm nhạc, giúp các bạn sảng khoái tinh thần học tập tốt hơn, công ty TNHH HP Việt Nam phối hợp với công ty Cổ Phần Thế Giới Số (Digiworld Corporation) tổ chức cuộc thi với tên gọi: “KHƠI NGUỒN SÁNG TẠO – THỔI BÙNG ĐAM MÊ”";
@@ -39,10 +39,12 @@ namespace DGW_LP.Controllers
             DateTime end;
             switch (t)
             {
+                //case 1:
+                //    start = new DateTime(2016, 11, 1);
+                //    end = new DateTime(2016, 11, 7);
+                //    break;
+                case 0:
                 case 1:
-                    start = new DateTime(2016, 11, 1);
-                    end = new DateTime(2016, 11, 7);
-                    break;
                 case 2:
                     start = new DateTime(2016, 11, 7);
                     end = new DateTime(2016, 11, 14);
@@ -51,9 +53,13 @@ namespace DGW_LP.Controllers
                     start = new DateTime(2016, 11, 14);
                     end = new DateTime(2016, 11, 21);
                     break;
-                default:
+                case 4:
                     start = new DateTime(2016, 11, 21);
-                    end = new DateTime(2016, 12, 1);
+                    end = new DateTime(2016, 11, 28);
+                    break;
+                default: // 5
+                    start = new DateTime(2016, 11, 28);
+                    end = new DateTime(2016, 12, 5);
                     break;
             }
            
@@ -228,29 +234,45 @@ namespace DGW_LP.Controllers
         [HttpPost]
         public string UploadVideo()
         {
-            // 2 ads video
-            //string path1 = MyHelper.getVideoPath() + "Clips/test.mp4";
-            //var adsvideo1 = System.IO.File.ReadAllBytes(path1);
-            //string path2 = MyHelper.getVideoPath() + "Clips/test.mp4";
-            //byte[] adsvideo2 = System.IO.File.ReadAllBytes(path2);
-
+            // Mp4
             var myFile = Request.Files[0];
+
+            // Webm
+            var myFile2 = Request.Files[1];
+
             string title = Request.Params["Title"];
             string author = Request.Params["Author"];
             string description = Request.Params["Desc"];
 
-
             byte[] videoBytes = null;
+            byte[] videoBytes2 = null;
 
             string time = DateTime.Now.ToString().Replace(':', '-').Replace("/", "-").Replace(" ", "-");
             var fullFilePath = MyHelper.getVideoPath() + "Clips\\" + time + ".mp4";
+            var fullFilePath2 = MyHelper.getVideoPath() + "Clips\\" + time + ".webm";
+
+            using (var binaryReader = new BinaryReader(myFile2.InputStream))
+            {
+                videoBytes2 = binaryReader.ReadBytes(myFile2.ContentLength);
+            }
+            try
+            {
+                using (FileStream str = System.IO.File.OpenWrite(fullFilePath2))
+                {
+                    str.Write(videoBytes2, 0, videoBytes2.Length);
+                }
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+                //return "Error";
+            }
+
 
             using (var binaryReader = new BinaryReader(myFile.InputStream))
             {
                 videoBytes = binaryReader.ReadBytes(myFile.ContentLength);
             }
-            // Save video temporary to merge
-            //var tmpFilePath = MyHelper.getVideoPath() + "Clips\\tmp.mp4";
 
             try
             {
@@ -258,6 +280,8 @@ namespace DGW_LP.Controllers
                 {
                     str.Write(videoBytes, 0, videoBytes.Length);
                 }
+
+
 
                 // Create video thumb image
                 string thumbName = time + "-thumb.jpg";

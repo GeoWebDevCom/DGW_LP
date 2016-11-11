@@ -15,14 +15,18 @@
 
 
 isSelectingImg = false;
-
+isSelectingImg2 = false;
 
 
 function StarUploadVideo() {
-    if (document.getElementById("uploadFile").files.length > 0) {
+    if (document.getElementById("uploadFile").files.length > 0 && document.getElementById("uploadFile2").files.length > 0) {
         isSelectingImg = true;
+        isSelectingImg2 = true;
+
         var file = document.getElementById("uploadFile").files[0];
-        if (file.size < 50000000) {
+        var file2 = document.getElementById("uploadFile2").files[0];
+
+        if (file.size < 50000000 && file2.size < 50000000) {
             UploadVideo();
         } else {
             alert("Video quá lớn. Cho phép dung lượng tối đa là 50 MB");
@@ -30,7 +34,6 @@ function StarUploadVideo() {
     } else {
         alert("Chưa chọn video");
     }
-   
 }
 function UploadVideo() {
     // Check data before upload
@@ -44,11 +47,16 @@ function UploadVideo() {
     }
 
     var file = document.getElementById("uploadFile").files[0];
+    var file2 = document.getElementById("uploadFile2").files[0];
+
+
     var formdata = new FormData();
     $("#upload-modal").modal({
         backdrop: false
     });
     formdata.append("FileUpload", file);
+    formdata.append("FileUpload2", file2);
+
     formdata.append("Title", title);
     formdata.append("Author", author);
     formdata.append("Desc", desc);

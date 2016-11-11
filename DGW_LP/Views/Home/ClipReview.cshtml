@@ -32,35 +32,39 @@
 
                     <div class="clip-content">
 
-                        <video id="my-video" class="video-js" controls preload="auto" width="580" height="326"
-                               poster="/ClipThumb/10-11-2016-1-00-21-SA-thumb.jpg" data-setup="{}">
-                            <source src="~/Clips/10-11-2016-1-00-21-SA.webm" type='video/webm'>
+                        @*<video id="my-video" class="video-js" controls preload="auto" width="580" height="326"
+                               poster="/ClipThumb/@Model.Thumb" data-setup="{}">
+                            <source src="~/Clips/@Model.Src" type='video/mp4'>
+                            <source src="~/Clips/@Model.Src.Replace(".mp4", ".webm")" type='video/webm'>
                             <p class="vjs-no-js">
                                 To view this video please enable JavaScript, and consider upgrading to a web browser that
                                 <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                             </p>
-                        </video>
-
-                        @*<video width="320" height="240" controls poster="/ClipThumb/@Model.Thumb">
-                            <source src="~/Clips/10-11-2016-1-00-21-SA.avi" type="video/mp4">
-                            Your browser does not support the video tag.
                         </video>*@
+
+                        <video width="320" height="240" controls poster="/ClipThumb/@Model.Thumb">
+                            <source src="~/Clips/@Model.Src" type='video/mp4'>
+                            <source src="~/Clips/@Model.Src.Replace(".mp4", ".webm")" type='video/webm'>
+                            Your browser does not support the video tag.
+                        </video>
                     </div>
                 </div>
                 <div id="fake-laptop-bg">
-                    <video id="my-video" class="video-js" controls preload="auto" 
-                           poster="/ClipThumb/10-11-2016-1-00-21-SA-thumb.jpg" data-setup="{}">
-                        <source src="~/Clips/10-11-2016-1-00-21-SA.webm" type='video/webm'>
+                    @*<video id="my-video" class="video-js" controls preload="auto" 
+                           poster="/ClipThumb/@Model.Thumb" data-setup="{}">
+                        <source src="~/Clips/@Model.Src" type='video/mp4'>
+                        <source src="~/Clips/@Model.Src.Replace(".mp4", ".webm")" type='video/webm'>
                         <p class="vjs-no-js">
                             To view this video please enable JavaScript, and consider upgrading to a web browser that
                             <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a>
                         </p>
-                    </video>
-
-                    @*<video controls poster="/ClipThumb/@Model.Thumb">
-                        <source src="~/Clips/@Model.Src" type="video/mp4">
-                        Your browser does not support the video tag.
                     </video>*@
+
+                    <video controls poster="/ClipThumb/@Model.Thumb">
+                        <source src="~/Clips/@Model.Src" type="video/mp4">
+                        <source src="~/Clips/@Model.Src.Replace(".mp4", ".webm")" type='video/webm'>
+                        Your browser does not support the video tag.
+                    </video>
                 </div>
 
 

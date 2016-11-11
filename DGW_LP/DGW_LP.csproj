@@ -200,19 +200,7 @@
     <Compile Include="Startup.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Clips\10-11-2016-1-00-21-SA.avi" />
     <Content Include="Clips\10-11-2016-1-00-21-SA.mp4" />
-    <Content Include="Clips\26-10-2016-8-45-10-CH.mp4" />
-    <Content Include="Clips\26-10-2016-8-46-07-CH.mp4" />
-    <Content Include="Clips\27-10-2016-2-21-22-CH.mp4" />
-    <Content Include="Clips\27-10-2016-3-56-52-CH.mp4" />
-    <Content Include="Clips\27-10-2016-3-57-09-CH.mp4" />
-    <Content Include="Clips\27-10-2016-3-57-18-CH.mp4" />
-    <Content Include="Clips\27-10-2016-3-57-26-CH.mp4" />
-    <Content Include="Clips\27-10-2016-3-57-35-CH.mp4" />
-    <Content Include="Clips\27-10-2016-3-57-43-CH.mp4" />
-    <Content Include="Clips\27-10-2016-3-58-04-CH.mp4" />
-    <Content Include="Clips\test.mp4" />
     <Content Include="ClipThumb\10-11-2016-1-00-21-SA-thumb.jpg" />
     <Content Include="ClipThumb\26-10-2016-8-45-10-CH-thumb.jpg" />
     <Content Include="ClipThumb\26-10-2016-8-46-07-CH-thumb.jpg" />
