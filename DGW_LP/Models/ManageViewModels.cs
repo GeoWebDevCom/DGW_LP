@@ -9,7 +9,7 @@ namespace DGW_LP.Models
     public class AddComment
     {
         public int VideoId { get; set; }
-        public string UserId { get; set; }
+        //public string UserId { get; set; }
         public string Content { get; set; }
     }
 

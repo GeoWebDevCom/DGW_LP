@@ -55,7 +55,16 @@
                                 </div>
                                 <div class="clip-title">
                                     <span class="short-name" title="Video of a giant title thumb description">@vid.Title</span>
-                                    @if (Request.IsAuthenticated)
+                                    @if (((List<int>)ViewBag.VotedVideoId).Contains(vid.Id))
+                                    {
+                                        <span id="@ind" title="Bạn đã bình chọn video này" class="heart voted">@vid.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                    }
+                                    else
+                                    {
+                                        <span id="@ind" title="Bình chọn video này" class="heart" onclick="VoteVideo(@vid.Id, this)">@vid.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
+                                    }
+                                    
+                                     @*@if (Request.IsAuthenticated)
                                     {
 
                                         if (((List<int>)ViewBag.VotedVideoId).Contains(vid.Id))
@@ -70,7 +79,7 @@
                                     else
                                     {
                                         <span id="@ind" title="Bạn cần đăng nhập để bình chọn" class="heart">@vid.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
-                                    }
+                                    }*@
 
 
                                 </div>
@@ -97,6 +106,9 @@
 
 
 </div>
+
+
+<script type="text/javascript" defer src="~/Scripts/js.cookie.js"></script>
 
 <script type="text/javascript" defer src="~/Scripts/jquery.simplePagination.js"></script>
 <script type="text/javascript" defer src="~/Scripts/js/binhchon.js"></script>

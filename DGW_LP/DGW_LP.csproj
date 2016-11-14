@@ -222,6 +222,33 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Imgs\1.jpg" />
+    <Content Include="Imgs\10.jpg" />
+    <Content Include="Imgs\11.jpg" />
+    <Content Include="Imgs\12.jpg" />
+    <Content Include="Imgs\13.jpg" />
+    <Content Include="Imgs\14.jpg" />
+    <Content Include="Imgs\15.jpg" />
+    <Content Include="Imgs\16.jpg" />
+    <Content Include="Imgs\17.jpg" />
+    <Content Include="Imgs\18.jpg" />
+    <Content Include="Imgs\19.jpg" />
+    <Content Include="Imgs\2.jpg" />
+    <Content Include="Imgs\20.jpg" />
+    <Content Include="Imgs\21.jpg" />
+    <Content Include="Imgs\22.jpg" />
+    <Content Include="Imgs\23.jpg" />
+    <Content Include="Imgs\24.jpg" />
+    <Content Include="Imgs\25.jpg" />
+    <Content Include="Imgs\26.jpg" />
+    <Content Include="Imgs\27.jpg" />
+    <Content Include="Imgs\3.jpg" />
+    <Content Include="Imgs\4.jpg" />
+    <Content Include="Imgs\5.jpg" />
+    <Content Include="Imgs\6.jpg" />
+    <Content Include="Imgs\7.jpg" />
+    <Content Include="Imgs\8.jpg" />
+    <Content Include="Imgs\9.jpg" />
     <Content Include="Imgs\banner1.jpg" />
     <Content Include="Imgs\banner2.jpg" />
     <Content Include="Imgs\banner3.jpg" />
@@ -323,6 +350,7 @@
     <Content Include="Views\Shared\_AdminLayout.cshtml" />
     <Content Include="Views\Home\RestrictAdmin.cshtml" />
     <Content Include="Views\Home\AdminManage.cshtml" />
+    <Content Include="Views\Home\DangNhap.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

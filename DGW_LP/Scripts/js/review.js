@@ -87,7 +87,7 @@ function VoteVideo(vId, htmlItem) {
                 $(htmlItem).html((currentCount + 1) + " <i class='fa fa-lg fa-heart' aria-hidden='true'></i>");
                 $(htmlItem).prop('title', 'Bạn đã bình chọn video này');
 
-                $(htmlItem).attr("onclick", "CancelVote(" + vId + ",'#unique')");
+                $(htmlItem).prop('onclick', null).off('click');
             }
         });
     }

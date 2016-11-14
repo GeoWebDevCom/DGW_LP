@@ -22,7 +22,8 @@ namespace DGW_LP
             routes.MapRoute("ClipReview", "watch/{cId}",
                        new { controller = "Home", action = "ClipReview"});
 
-
+            routes.MapRoute("DangNhap", "dang-nhap",
+                new { controller = "Home", action = "DangNhap" });
 
             routes.MapRoute("AdminManage", "admin",
       new { controller = "Home", action = "AdminManage" });

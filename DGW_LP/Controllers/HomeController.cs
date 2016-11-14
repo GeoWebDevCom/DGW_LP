@@ -7,11 +7,34 @@ using System.Web;
 using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Newtonsoft.Json;
+using Microsoft.AspNet.Identity.Owin;
+using System.Data.Entity.Validation;
+using System.Diagnostics;
 
 namespace DGW_LP.Controllers
 {
     public class HomeController : Controller
     {
+        private ApplicationUserManager _userManager;
+        public ApplicationUserManager UserManager
+        {
+            get
+            {
+                return _userManager ?? HttpContext.GetOwinContext().GetUserManager<ApplicationUserManager>();
+            }
+            private set
+            {
+                _userManager = value;
+            }
+        }
+
+
+        public ActionResult DangNhap()
+        {
+           
+            return View();
+        }
+
         public ActionResult Index()
         {
             ViewBag.Title = "Khơi nguồn sáng tạo - Thổi bùng đam mê";
@@ -28,12 +51,71 @@ namespace DGW_LP.Controllers
             ViewBag.Banner = "http://hpkhoinguonsangtao.com.vn/Imgs/metabanner.jpg";
             return View();
         }
+
+        public List<int> GetVId()
+        {
+            if (Request.Cookies["userId"] != null)
+            {
+                string userId = Request.Cookies["userId"].Value.ToString();
+                using (ApplicationDbContext db = new ApplicationDbContext())
+                {
+                    List<int> votedObj = db.Likes.Where(t => t.ApplicationUser.Id == userId).Select(t => t.Video.Id).ToList();
+                    return votedObj;
+                }
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public string GetUserIdFromCookie()
+        {
+            if (Request.Cookies["userId"] != null)
+            {
+                return Request.Cookies["userId"].Value;
+            }
+            else
+            {
+                return "";
+            } 
+        }
+
+        public void AddUserIdToCookie(string userId)
+        {
+            if (Request.Cookies["userId"] != null)
+            {
+                HttpCookie appCookie = new HttpCookie("userId");
+                appCookie.Value = userId;
+                appCookie.Expires = Request.Cookies["userId"].Expires;
+                Response.Cookies.Add(appCookie);
+            }
+            else
+            {
+                // Create new cookie
+                HttpCookie appCookie = new HttpCookie("userId");
+                appCookie.Value = userId; // list video id
+                appCookie.Expires = DateTime.Now.AddDays(1);
+                Response.Cookies.Add(appCookie);
+            }
+        }
+
+
         public ActionResult BinhChon(int t = 2)
         {
             ViewBag.Title = "Khơi nguồn sáng tạo - Thổi bùng đam mê";
             ViewBag.Description = "Nhằm tạo sân chơi cho các bạn trẻ sinh viên yêu âm nhạc, khơi nguồn cảm hứng để các bạn có thể được sống với niềm đam mê và có cơ hội tỏa sáng trên sân chơi chung, thêm yêu đời, yêu cuộc sống thông qua những giai điệu âm nhạc, giúp các bạn sảng khoái tinh thần học tập tốt hơn, công ty TNHH HP Việt Nam phối hợp với công ty Cổ Phần Thế Giới Số (Digiworld Corporation) tổ chức cuộc thi với tên gọi: “KHƠI NGUỒN SÁNG TẠO – THỔI BÙNG ĐAM MÊ”";
             ViewBag.Banner = "http://hpkhoinguonsangtao.com.vn/Imgs/metabanner.jpg";
 
+            var list = GetVId();
+            if (list == null)
+            {
+                ViewBag.VotedVideoId = new List<int>();
+            }
+            else
+            {
+                ViewBag.VotedVideoId = list;
+            }
+    
 
             DateTime start;
             DateTime end;
@@ -66,7 +148,7 @@ namespace DGW_LP.Controllers
 
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                string userId = User.Identity.GetUserId();
+              
 
                 List<VideoVote> video = db.Videos.Where(v => v.createdDate >= start && v.createdDate <= end).OrderByDescending(g => g.createdDate).Select(f => new VideoVote
                 {
@@ -80,12 +162,6 @@ namespace DGW_LP.Controllers
 
                 ViewBag.Total = db.Videos.Where(v => v.createdDate >= start && v.createdDate <= end).Count();
 
-                if (!String.IsNullOrEmpty(userId))
-                {
-                    var votedObj = db.Likes.Where(m => m.ApplicationUser.Id == userId).Select(f => f.Video.Id).ToList();
-                    ViewBag.VotedVideoId = votedObj;
-
-                }
                 return View(video);
             }
 
@@ -118,6 +194,16 @@ namespace DGW_LP.Controllers
 
         public ActionResult ClipReview(int cId)
         {
+            var list = GetVId();
+            if (list == null)
+            {
+                ViewBag.VotedVideoId = new List<int>();
+            }
+            else
+            {
+                ViewBag.VotedVideoId = list;
+            }
+
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
                 var vid = db.Videos.Where(t => t.Id == cId).Select(t => new VideoReview {
@@ -143,7 +229,7 @@ namespace DGW_LP.Controllers
                 {
   
                     var votedObj = db.Likes.Where(m => m.ApplicationUser.Id == userId).Select(f => f.Video.Id).ToList();
-                    ViewBag.VotedVideoId = votedObj;
+                    //ViewBag.VotedVideoId = votedObj;
 
                 }
                 ViewBag.Next = vid.Id;
@@ -174,31 +260,99 @@ namespace DGW_LP.Controllers
             }
         }
 
+
+        public static string GenerateOTP()
+        {
+            string alphabets = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            string small_alphabets = "abcdefghijklmnopqrstuvwxyz";
+            string numbers = "1234567890";
+            int length = 6; // password length
+            string pwType = "1"; //Alphanumeric
+
+            string characters = numbers;
+            if (pwType == "1")
+            {
+                characters += alphabets + small_alphabets + numbers;
+            }
+
+            string otp = string.Empty;
+            for (int i = 0; i < length; i++)
+            {
+                string character = string.Empty;
+                do
+                {
+                    int index = new Random().Next(0, characters.Length);
+                    character = characters.ToCharArray()[index].ToString();
+                } while (otp.IndexOf(character) != -1);
+                otp += character;
+            }
+            return otp;
+        }
+
+
         [HttpPost]
         public string VoteVideo(int videoId)
         {
             using (ApplicationDbContext db = new ApplicationDbContext())
             {
-                string userId = User.Identity.GetUserId();
-                //bool hasVoted = db.Likes.Where(t => t.ApplicationUser.Id == userId && t.Video.Id == videoId).Any();
-                //if (!hasVoted)
-                //{
-                    
-                //}
-                Like like = new Like()
+                // Check user existed
+                if (Request.Cookies["userId"] != null)
                 {
-                    ApplicationUser = db.Users.FirstOrDefault(t => t.Id == userId),
-                    Video = db.Videos.FirstOrDefault(t => t.Id == videoId),
-                    createdDate = DateTime.Now
-                };
-                db.Likes.Add(like);
-                try
-                {
-                    db.SaveChanges();
+                    string userId = Request.Cookies["userId"].Value;
+                    Like like = new Like()
+                    {
+                        ApplicationUser = db.Users.Where(t => t.Id == userId).FirstOrDefault(),
+                        Video = db.Videos.FirstOrDefault(t => t.Id == videoId),
+                        createdDate = DateTime.Now
+                    };
+                    db.Likes.Add(like);
+                    try
+                    {
+                        db.SaveChanges();
+                        return "OK";
+                    }
+                    catch (Exception e)
+                    {
+                        return "Error";
+                    }
                 }
-                catch (Exception e)
+                else
                 {
-                    return "Error";
+                    string tmp = GenerateOTP();
+                    Random random = new Random();
+                    int avatar = random.Next(1, 27);
+                    var user = new ApplicationUser
+                    {
+                        UserName = tmp,
+                        Email = tmp + "@magica.top",
+                        EmailConfirmed = true,
+                        Avatar = avatar + ".jpg"
+                    };
+                    var result = UserManager.Create(user, tmp);
+                    if (result.Succeeded)
+                    {
+                        Like like = new Like()
+                        {
+                            ApplicationUser = db.Users.Where(t => t.Id == user.Id).FirstOrDefault(),
+                            Video = db.Videos.FirstOrDefault(t => t.Id == videoId),
+                            createdDate = DateTime.Now
+                        };
+                        db.Likes.Add(like);
+                        try
+                        {
+                            db.SaveChanges();
+                            // If success, add to Cookie
+                            AddUserIdToCookie(user.Id);
+                        }
+                        catch (Exception e)
+                        {
+                            return "Error";
+                        }
+                    }
+                    else
+                    {
+                        return "Error";
+                    }
                 }
             }
             return "OK";
@@ -349,7 +503,31 @@ namespace DGW_LP.Controllers
 
         public ActionResult SubmitComment(AddComment ac)
         {
-            string userId = User.Identity.GetUserId();
+            string userId = "";
+            if (Request.Cookies["userId"] != null)
+            {
+                userId = Request.Cookies["userId"].Value;
+            }else
+            {
+                // Create new user to comment
+                string tmp = GenerateOTP();
+                Random random = new Random();
+                int avatar = random.Next(1, 27);
+                var user = new ApplicationUser
+                {
+                    UserName = tmp,
+                    Email = tmp + "@magica.top",
+                    EmailConfirmed = true,
+                    Avatar = avatar + ".jpg"
+                };
+                var result = UserManager.Create(user, tmp);
+                if (result.Succeeded)
+                {
+                    userId = user.Id;
+                    // If success, add to Cookie
+                    AddUserIdToCookie(user.Id);
+                }
+            }
             if (!String.IsNullOrEmpty(userId))
             {
                 using (ApplicationDbContext db =new ApplicationDbContext())
@@ -357,7 +535,7 @@ namespace DGW_LP.Controllers
                     Comments comment = new Comments() {
                         Content = ac.Content,
                         Video = db.Videos.FirstOrDefault(t => t.Id == ac.VideoId),
-                        ApplicationUser = db.Users.FirstOrDefault(t => t.Id == ac.UserId),
+                        ApplicationUser = db.Users.FirstOrDefault(t => t.Id == userId),
                         createdDate = DateTime.Now
                     };
                     db.Comments.Add(comment);
