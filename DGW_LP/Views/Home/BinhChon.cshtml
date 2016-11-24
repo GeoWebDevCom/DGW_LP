@@ -33,9 +33,18 @@
                    @*<li><a href="/binhchon?t=1">Tuần 1</a></li>*@
                    <li><a href="/binhchon?t=2">Tuần 2</a></li>
                    <li><a href="/binhchon?t=3">Tuần 3</a></li>
-                   <li><a href="/binhchon?t=4">Tuần 4</a></li>
-                   <li><a href="/binhchon?t=5">Tuần 5</a></li>
-                   <li><a href="/binhchon?t=6">Tuần 6</a></li>
+                   @if (ViewBag.T4 == true)
+                   {
+                    <li><a href="/binhchon?t=4">Tuần 4</a></li>
+                   }
+                   @if (ViewBag.T5 == true)
+                   {
+                       <li><a href="/binhchon?t=5">Tuần 5</a></li>
+                   }
+                   @if (ViewBag.T6 == true)
+                   {
+                       <li><a href="/binhchon?t=6">Tuần 6</a></li>
+                   }
                </ul>
            </div>
        </div>
@@ -107,8 +116,6 @@
 
 </div>
 
-
-<script type="text/javascript" defer src="~/Scripts/js.cookie.js"></script>
 
 <script type="text/javascript" defer src="~/Scripts/jquery.simplePagination.js"></script>
 <script type="text/javascript" defer src="~/Scripts/js/binhchon.js"></script>

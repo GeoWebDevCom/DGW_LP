@@ -139,9 +139,13 @@ namespace DGW_LP.Controllers
                     start = new DateTime(2016, 11, 21);
                     end = new DateTime(2016, 11, 28);
                     break;
-                default: // 5
+                case 5:
                     start = new DateTime(2016, 11, 28);
                     end = new DateTime(2016, 12, 5);
+                    break;
+                default: // 6
+                    start = new DateTime(2016, 12, 5);
+                    end = new DateTime(2016, 12, 16);
                     break;
             }
            
@@ -161,6 +165,18 @@ namespace DGW_LP.Controllers
                 }).ToList();
 
                 ViewBag.Total = db.Videos.Where(v => v.createdDate >= start && v.createdDate <= end).Count();
+
+                DateTime startT4 = new DateTime(2016, 11, 21);
+                DateTime endT4 = new DateTime(2016, 11, 28);
+                ViewBag.T4 = db.Videos.Any(v => v.createdDate >= startT4 && v.createdDate <= endT4);
+
+                DateTime startT5 = new DateTime(2016, 11, 28);
+                DateTime endT5 = new DateTime(2016, 12, 5);
+                ViewBag.T5 = db.Videos.Any(v => v.createdDate >= startT5 && v.createdDate <= endT5);
+
+                DateTime startT6 = new DateTime(2016, 12, 5);
+                DateTime endT6 = new DateTime(2016, 12, 16);
+                ViewBag.T6 = db.Videos.Any(v => v.createdDate >= startT6 && v.createdDate <= endT6);
 
                 return View(video);
             }
@@ -465,6 +481,33 @@ namespace DGW_LP.Controllers
             }
             return "OK";
         }
+
+        [HttpPost]
+        public ActionResult UpdateClip(UpdateClip uc)
+        {
+            using (ApplicationDbContext db = new ApplicationDbContext())
+            {
+                var clip = db.Videos.FirstOrDefault(t => t.Id == uc.Id);
+                if (clip != null)
+                {
+                    clip.Title = uc.Title;
+                    clip.AuthorName = uc.Author;
+                    clip.Description = uc.Description;
+                    try{
+                        db.SaveChanges();
+                    }
+                    catch (Exception e)
+                    {
+                        // Error
+                        return Redirect("/admin");
+                    }
+
+                }
+
+            }
+            return Redirect("/admin");
+        }
+
 
         [HttpPost]
         public ActionResult DeleteVideo(int vId)

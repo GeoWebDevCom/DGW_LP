@@ -39,6 +39,17 @@ namespace DGW_LP.Models
         public bool RememberMe { get; set; }
     }
 
+    public class UpdateClip
+    {
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string Author { get; set; }
+        public string Description { get; set; }
+
+
+    }
+
+
     public class ForgotViewModel
     {
         [Required]

@@ -26,7 +26,7 @@ function StarUploadVideo() {
         var file = document.getElementById("uploadFile").files[0];
         var file2 = document.getElementById("uploadFile2").files[0];
 
-        if (file.size < 50000000 && file2.size < 50000000) {
+        if (file.size < 200000000 && file2.size < 200000000) {
             UploadVideo();
         } else {
             alert("Video quá lớn. Cho phép dung lượng tối đa là 50 MB");
