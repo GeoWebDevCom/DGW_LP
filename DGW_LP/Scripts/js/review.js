@@ -53,8 +53,8 @@ function LoadMoreComment(htmlItem, vId) {
             var list = jQuery.parseJSON(data);
             for (var i = 0; i < list.data.length; i++){
                 $("#comment-list").append("<div class='comment-item'><div class='avatar'>" 
-                  +  "<img style='height:100%;width:100%' src='" + list.data[i].Avatar + "' /> </div>"
-                                            + "<div class='comment-content'><label>" + list.data[i].Name + "</label> "
+                  +  "<img style='height:100%;width:100%' src='/Imgs/" + list.data[i].Avatar + "' /> </div>"
+                                            + "<div class='comment-content'>"
                                                + "<div>" + list.data[i].Content + "</div></div></div>");
             }
 

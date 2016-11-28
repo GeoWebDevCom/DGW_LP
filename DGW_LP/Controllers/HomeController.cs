@@ -329,14 +329,17 @@ namespace DGW_LP.Controllers
                     }
                     catch (Exception e)
                     {
-                        return "Error";
+                        return "Error with Id";
                     }
                 }
                 else
                 {
-                    string tmp = GenerateOTP();
+                
                     Random random = new Random();
                     int avatar = random.Next(1, 27);
+           
+                    int rd = random.Next(1, 999);
+                    string tmp = GenerateOTP() + rd;
                     var user = new ApplicationUser
                     {
                         UserName = tmp,
@@ -362,12 +365,12 @@ namespace DGW_LP.Controllers
                         }
                         catch (Exception e)
                         {
-                            return "Error";
+                            return "Error with new user";
                         }
                     }
                     else
                     {
-                        return "Error";
+                        return "Error when create user" + result.Errors.FirstOrDefault();
                     }
                 }
             }
@@ -553,9 +556,13 @@ namespace DGW_LP.Controllers
             }else
             {
                 // Create new user to comment
-                string tmp = GenerateOTP();
+                //string tmp = GenerateOTP();
                 Random random = new Random();
                 int avatar = random.Next(1, 27);
+
+                int rd = random.Next(1, 999);
+                string tmp = GenerateOTP() + rd;
+
                 var user = new ApplicationUser
                 {
                     UserName = tmp,

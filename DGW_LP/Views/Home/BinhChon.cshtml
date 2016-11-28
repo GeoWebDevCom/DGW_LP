@@ -3,6 +3,7 @@
 <link type="text/css" rel="stylesheet" href="~/Content/simplePagination.css" />
 
 <span style="display:none" id="total">@ViewBag.Total</span>
+<span style="display:none">@Request.Cookies["userId"]</span>
 
 <div id="thele" class="col-lg-12 col-md-12 col-sm-12 col-xs-12 fullpage-bot">
     <div class="container">
@@ -63,7 +64,7 @@
                                   
                                 </div>
                                 <div class="clip-title">
-                                    <span class="short-name" title="Video of a giant title thumb description">@vid.Title</span>
+                                    <span class="short-name" title="@vid.Title">@vid.Title</span>
                                     @if (((List<int>)ViewBag.VotedVideoId).Contains(vid.Id))
                                     {
                                         <span id="@ind" title="Bạn đã bình chọn video này" class="heart voted">@vid.Vote <i class="fa fa-lg fa-heart" aria-hidden="true"></i></span>
@@ -119,3 +120,5 @@
 
 <script type="text/javascript" defer src="~/Scripts/jquery.simplePagination.js"></script>
 <script type="text/javascript" defer src="~/Scripts/js/binhchon.js"></script>
+
+
